@@ -1,0 +1,72 @@
+{
+  "headerMenu": [
+    {
+      "title": "Главная",
+      "url": "http://bootstrap-3.ru/examples/dashboard/#"
+    },
+    {
+      "title": "Бакалаврам",
+      "url": "http://bootstrap-3.ru/examples/dashboard/#"
+    },
+    {
+      "title": "Магистрам",
+      "url": "http://bootstrap-3.ru/examples/dashboard/#"
+    },
+    {
+      "title": "Сотрудникам",
+      "url": "http://bootstrap-3.ru/examples/dashboard/#"
+    },
+    {
+      "title": "Аспирантам",
+      "url": "http://bootstrap-3.ru/examples/dashboard/#"
+    },
+    {
+      "title": "Помощь",
+      "url": "http://bootstrap-3.ru/examples/dashboard/#"
+    }
+  ],
+  "formRegStaticData": [
+    {
+      "for": "lastName",
+	  "labelData":"Фамилия:",
+      "type": "text",
+	  "id": "lastName",
+	  "placeholder": "Введите фамилию"
+    },
+    {
+      "for": "firstName",
+	  "labelData": "Имя:",
+      "type": "text",
+	  "id": "firstName",
+	  "placeholder": "Введите имя"
+    },
+    {
+      "for": "inputEmail",
+	  "labelData": "Email:",
+      "type": "email",
+	  "id": "inputEmail",
+	  "placeholder": "Email"
+    },
+	{
+	  "for": "inputPassword",
+	  "labelData": "Пароль:",
+      "type": "password",
+	  "id": "inputPassword",
+	  "placeholder": "Введите пароль"
+	},
+	{
+	  "for": "confirmPassword",
+	  "labelData": "Подтвердите пароль:",
+      "type": "password",
+	  "id": "confirmPassword",
+	  "placeholder": "Введите пароль ещё раз"
+	},
+	{
+	  "for": "phoneNumber",
+	  "labelData": "Телефон:",
+      "type": "tel",
+	  "id": "phoneNumber",
+	  "placeholder": "Введите номер телефона"
+	}
+  ]
+}
