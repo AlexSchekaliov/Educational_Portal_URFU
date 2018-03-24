@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView
 
 from django.views.generic.edit import FormView
 from educportal.forms import SignUpForm
@@ -6,7 +8,7 @@ from educportal.forms import SignUpForm
 class SignUpView(FormView):
     form_class = SignUpForm
     template_name = 'home_page.html'
-    success_url = '/'
+    success_url =  reverse_lazy('home_page')
 
     def form_valid(self, form):
         
@@ -18,7 +20,9 @@ class SignUpView(FormView):
 
 # Create your views here.
 
-def home_page(request):
-	return render(request, 'educportal/home_page.html', {})
+
+class HomePageView(TemplateView):
+
+    template_name = "educportal/home_page.html"
 	
 

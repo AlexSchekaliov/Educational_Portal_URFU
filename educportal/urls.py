@@ -14,7 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import include, path
+from educportal.views import HomePageView
 from . import views
 urlpatterns = [
-    path(r'', views.home_page, name='home_page'),
+    path(r'', HomePageView.as_view()),
 ]
