@@ -27,7 +27,7 @@
 	</head>
     <body>
 		{% include 'educportal/header_menu.html' %}
-        {% block content_home_page %}{% endblock %}
+        {% block content %}{% endblock %}
 
         <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -35,5 +35,7 @@
     <script src="{% static "educportal/js/jquery.min.js" %}"></script>
     <script src="{% static "educportal/js/bootstrap.min.js" %}"></script>
     <script src="{% static "educportal/js/docs.min.js" %}"></script>
+    <script src="{% static "educportal/js/jquery.maskedinput.js" %}"></script>
+    <script src="{% static "educportal/js/masks.js" %}"></script>
     </body>
 </html>

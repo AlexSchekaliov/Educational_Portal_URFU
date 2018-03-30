@@ -3,7 +3,8 @@ from django.forms import ModelForm
 from educportal.models import User
 class SignUpForm(ModelForm):
     confirm_password = forms.CharField(
-        widget=forms.PasswordInput(label='Подтвердите пароль'),
+        label='Подтвердите пароль',
+        widget=forms.PasswordInput(),
         strip=False,
         help_text='Введите пароль повторно.'
     )
@@ -26,14 +27,34 @@ class SignUpForm(ModelForm):
         super().clean()
         if 'password' in self.cleaned_data and 'confirm_password' in self.cleaned_data:
             if self.cleaned_data['password'] != self.cleaned_data['confirm_password']:
-                raise forms.ValidationError("Пароли должны совпадать!!!")
+                self.add_error(None, "Пароли должны совпадать!!!")
         return self.cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user
 
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password','phone_number')
 
+'''
+class SignInForm(ModelForm):
+
+    def clean(self):
+        super().clean()
+        username = self.cleaned_data["username"]
+        password = self.cleaned_data["password"]
+        user = authenticate(username=username, password=password)
+        if user is None:
+            self.add_error(None, 'Такого пользователя не существует. Возможно вы некорректно ввели логин или пароль!')
+        return self.cleaned_data
 
 
-
-
+    class Meta:
+        model = User
+        fields=('username', 'password')
+'''
