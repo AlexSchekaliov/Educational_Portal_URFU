@@ -23,6 +23,6 @@ from . import views
 urlpatterns = [
     path(r'', HomePageView.as_view(), name = 'home_page'),
     path(r'register/', SignUpView.as_view(), name = 'reg_page'),
-    path(r'login/', LoginView.as_view(template_name='educportal/login'), name = 'login_page'),
-    path(r'logout/', LogoutView.as_view(next_page= reverse_lazy('home_page')), name = 'logout'),
+    path(r'login/', LoginView.as_view(template_name='educportal/login.html'), name = 'login_page'),
+    path(r'logout/', LogoutView.as_view(), name = 'logout'),
 ]

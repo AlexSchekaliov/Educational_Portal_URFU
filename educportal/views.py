@@ -12,25 +12,25 @@ from django.contrib.auth.forms import AuthenticationForm
 class SignUpView(CreateView):
     form_class = SignUpForm
     template_name = "educportal/register.html"
-    success_url =  reverse_lazy('auth_page')
+    success_url =  reverse_lazy('login_page')
 
 
 
 
 
 
-'''
-class SignInView(FormView):
-    form_class = AuthenticationForm
-    template_name = "educportal/login.html"
-    success_url = reverse_lazy('home_page')
 
-    def form_valid(self, form):
+# class SignInView(FormView):
+#     form_class = AuthenticationForm
+#     template_name = "educportal/login.html"
+#     success_url = reverse_lazy('home_page')
+#
+#     def form_valid(self, form):
+#
+#         login(self.request, form.get_user())
+#
+#         return redirect(self.get_success_url())
 
-        login(self.request, form.get_user())
-
-        return redirect(self.get_success_url())
-'''
 class HomePageView(TemplateView):
 
     template_name = "educportal/home_page.html"

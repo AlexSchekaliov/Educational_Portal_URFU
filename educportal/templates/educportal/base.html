@@ -26,16 +26,17 @@
   	<style id="holderjs-style" type="text/css"></style>
 	</head>
     <body>
-		{% include 'educportal/header_menu.html' %}
-        {% block content %}{% endblock %}
-
-        <!-- Bootstrap core JavaScript
+         <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{% static "educportal/js/jquery.min.js" %}"></script>
-    <script src="{% static "educportal/js/bootstrap.min.js" %}"></script>
-    <script src="{% static "educportal/js/docs.min.js" %}"></script>
-    <script src="{% static "educportal/js/jquery.maskedinput.js" %}"></script>
-    <script src="{% static "educportal/js/masks.js" %}"></script>
+		{% include 'educportal/header_menu.html' %}
+        {% block content %}{% endblock %}
+        {% block scripts %}
+
+            <script src="{% static "educportal/js/jquery.min.js" %}"></script>
+            <script src="{% static "educportal/js/bootstrap.min.js" %}"></script>
+            <script src="{% static "educportal/js/docs.min.js" %}"></script>
+
+        {% endblock %}
     </body>
 </html>

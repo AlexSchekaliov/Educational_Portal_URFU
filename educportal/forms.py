@@ -2,6 +2,8 @@ from django import forms
 from django.forms import ModelForm
 from educportal.models import User
 class SignUpForm(ModelForm):
+    first_name = forms.CharField(label='Имя')
+    last_name = forms.CharField(label='Фамилия')
     confirm_password = forms.CharField(
         label='Подтвердите пароль',
         widget=forms.PasswordInput(),
@@ -14,7 +16,7 @@ class SignUpForm(ModelForm):
         if User.objects.filter(username__iexact=username).exists():
             self.add_error('username', 'Пользователь с таким именем уже существует!')
 
-        return username.lower()
+        return username
 
     def clean_email(self):
         email = self.cleaned_data["email"]
@@ -41,20 +43,19 @@ class SignUpForm(ModelForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password','phone_number')
 
-'''
-class SignInForm(ModelForm):
 
-    def clean(self):
-        super().clean()
-        username = self.cleaned_data["username"]
-        password = self.cleaned_data["password"]
-        user = authenticate(username=username, password=password)
-        if user is None:
-            self.add_error(None, 'Такого пользователя не существует. Возможно вы некорректно ввели логин или пароль!')
-        return self.cleaned_data
-
-
-    class Meta:
-        model = User
-        fields=('username', 'password')
-'''
+# class SignInForm(ModelForm):
+#
+#     def clean(self):
+#         super().clean()
+#         username = self.cleaned_data["username"]
+#         password = self.cleaned_data["password"]
+#         user = authenticate(username=username, password=password)
+#         if user is None:
+#             self.add_error(None, 'Такого пользователя не существует. Возможно вы некорректно ввели логин или пароль!')
+#         return self.cleaned_data
+#
+#
+#     class Meta:
+#         model = User
+#         fields=('username', 'password')
