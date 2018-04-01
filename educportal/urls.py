@@ -14,6 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import include, path, reverse_lazy
+from django.views.generic import TemplateView
+
 from educportal.views import HomePageView
 from educportal.views import SignUpView
 from django.contrib.auth.views import LoginView
@@ -25,4 +27,6 @@ urlpatterns = [
     path(r'register/', SignUpView.as_view(), name = 'reg_page'),
     path(r'login/', LoginView.as_view(template_name='educportal/login.html'), name = 'login_page'),
     path(r'logout/', LogoutView.as_view(), name = 'logout'),
+    path(r'profile/', TemplateView.as_view(template_name='educportal/profile_page.html'), name = 'profile_page')
+
 ]
