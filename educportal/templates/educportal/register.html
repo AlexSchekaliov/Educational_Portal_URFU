@@ -1,0 +1,112 @@
+{% extends 'educportal/base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+{% block title %}Test register_page{% endblock %}
+{% block content %}
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Регистрация</h4>
+      </div>
+      <div class="modal-body">
+         <form class="form-horizontal" method="post" id="register-form" novalidate>
+            {% csrf_token %}
+              <div class="form-group {% if form.username.errors  %}has-error{% endif %}">
+                    <label class="control-label col-xs-3">Логин:</label>
+                    <div class="col-xs-9">
+                        {{ form.username|add_class:'form-control'|append_attr:'placeholder:Введите логин' }}
+                        {% if form.username.errors %}
+                            <p class="text-danger">{{ form.username.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+              <div class="form-group {% if form.last_name.errors  %}has-error{% endif %}">
+                    <label class="control-label col-xs-3">{{ form.last_name.label }}</label>
+                    <div class="col-xs-9">
+                        {{ form.last_name|add_class:'form-control'|append_attr:'placeholder:Введите фамилию' }}
+                        {% if form.last_name.errors %}
+                            <p class="text-danger">{{ form.last_name.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+              </div>
+              <div class="form-group {% if form.first_name.errors  %}has-error{% endif %}">
+                    <label class="control-label col-xs-3">{{ form.first_name.label }}</label>
+                    <div class="col-xs-9">
+                        {{ form.first_name|add_class:'form-control'|append_attr:'placeholder:Введите имя' }}
+                        {% if form.first_name.errors %}
+                            <p class="text-danger">{{ form.first_name.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+              </div>
+              <div class="form-group {% if form.email.errors  %}has-error{% endif %}">
+                    <label class="control-label col-xs-3">{{ form.email.label }}</label>
+                    <div class="col-xs-9">
+                        {{ form.email|add_class:'form-control'|append_attr:'placeholder:Введите Email' }}
+                        {% if form.email.errors %}
+                            <p class="text-danger">{{ form.email.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+              </div>
+                <div class="form-group {% if form.phone_number.errors  %}has-error{% endif %}">
+                    <label class="control-label col-xs-3">{{ form.phone_number.label }}</label>
+                    <div class="col-xs-9">
+                        {{ form.phone_number|add_class:'form-control'|append_attr:'placeholder:Введите номер телефона' }}
+                        {% if form.phone_number.errors %}
+                            <p class="text-danger">{{ form.phone_number.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+              </div>
+                <div class="form-group {% if form.password.errors  %}has-error{% endif %}">
+                    <label class="control-label col-xs-3">{{ form.password.label }}</label>
+                    <div class="col-xs-9">
+                        {{ form.password|add_class:'form-control'|append_attr:'placeholder:Введите пароль' }}
+                        {% if form.password.errors %}
+                            <p class="text-danger">{{ form.password.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+              </div>
+              <div class="form-group {% if form.confirm_password.errors  %}has-error{% endif %}">
+                    <label class="control-label col-xs-3">{{ form.confirm_password.label }}</label>
+                    <div class="col-xs-9">
+                        {{ form.confirm_password|add_class:'form-control'|append_attr:'placeholder:Введите пароль ещё раз' }}
+                        {% if form.confirm_password.errors %}
+                            <p class="text-danger">{{ form.confirm_password.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+              </div>
+              <br />
+              <div class="form-group">
+                      <div class="col-xs-offset-3 col-xs-9">
+                        <input type="submit" class="btn btn-primary" name="btn-reg" id="btn-submit" form="register-form" value="Зарегистрироваться">
+                        <a class="btn btn-primary" href="{% url 'home_page' %}" role="button">Вернуться на главную</a>
+                      </div>
+              </div>
+          </form>
+      </div>
+      <!-- Нижняя часть модального окна -->
+      <div class="modal-footer">
+        {% if form.non_field_errors %}
+            {% for err in form.non_field_errors %}
+                <div class="alert alert-danger">{{ err }}</div>
+            {% endfor %}
+         {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{{% block scripts %}
+    {{ block.super }}
+    <script src="{% static "educportal/js/jquery.maskedinput.js" %}"></script>
+    <script type="text/javascript">
+        $('document').ready(function()
+        {
+            $("#{{form.phone_number.id_for_label}}").mask('+7(999) 999-9999');
+        });
+    </script>
+{% endblock %}}
+
+
+
+
+
