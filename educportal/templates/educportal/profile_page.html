@@ -1,5 +1,13 @@
 {% extends 'educportal/base.html' %}
-{% block title %}Test profile_page{% endblock %}
+{% load staticfiles %}
+{% block header %}
+    {{ block.super}}
+    {% block title %}Test profile_page{% endblock %}
+    <link href="{% static "educportal/styles/styles_profile.css"%}" rel="stylesheet">
+{% endblock %}
+{% block header_menu %}
+    {{ block.super }}
+{% endblock %}
 {% block content %}
     <div class="container-fluid">
     <div class="row profile">
@@ -63,4 +71,5 @@
 </div>
 {% endblock %}
 {{% block scripts %}
+     {{ block.super }}
 {% endblock %}}

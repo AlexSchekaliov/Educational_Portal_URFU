@@ -1,6 +1,12 @@
 {% extends 'educportal/base.html' %}
 {% load widget_tweaks %}
+{% block header %}
+    {{ block.super }}
 {% block title %}Test auth{% endblock %}
+{% endblock %}
+{% block header_menu %}
+    {{ block.super }}
+{% endblock %}
 {% block content %}
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -48,5 +54,5 @@
 {% endblock %}
 
 {% block scripts %}
-
+    {{ block.super }}
 {% endblock %}
