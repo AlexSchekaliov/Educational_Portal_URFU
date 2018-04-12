@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'phonenumber_field',
     'widget_tweaks',
+	'django_select2',
 	'educportal',
 
 ]

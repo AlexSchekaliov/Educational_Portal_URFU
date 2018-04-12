@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from educportal.models import User
+from educportal.models import AcademicGroup
 class SignUpForm(ModelForm):
     first_name = forms.CharField(label='Имя')
     last_name = forms.CharField(label='Фамилия')
@@ -10,6 +11,7 @@ class SignUpForm(ModelForm):
         strip=False,
         help_text='Введите пароль повторно.'
     )
+    select_group = forms.ModelChoiceField(queryset=AcademicGroup.objects.all(),required=True)
 
     def clean_username(self):
         username = self.cleaned_data["username"]

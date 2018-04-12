@@ -62,6 +62,15 @@
                         {% endif %}
                     </div>
               </div>
+                <div class="form-group {% if form.select_group.errors  %}has-error{% endif %}">
+                    <label class="control-label col-xs-3">Группа</label>
+                    <div class="col-xs-9">
+                        {{ form.select_group|add_class:'form-control'|append_attr:'placeholder:Выберите группу' }}
+                        {% if form.select_group.errors %}
+                            <p class="text-danger">{{ form.select_group.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+              </div>
                 <div class="form-group {% if form.password.errors  %}has-error{% endif %}">
                     <label class="control-label col-xs-3">{{ form.password.label }}</label>
                     <div class="col-xs-9">
