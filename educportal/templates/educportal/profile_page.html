@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block header %}
     {{ block.super}}
-    {% block title %}Test profile_page{% endblock %}
+    <title>Test profile_page</title>
     <link href="{% static "educportal/styles/styles_profile.css"%}" rel="stylesheet">
 {% endblock %}
 {% block header_menu %}
@@ -23,9 +23,9 @@
 					<div class="profile-usertitle-name">
 						{{user.first_name|title}} {{user.last_name|title}}
 					</div>
-{#					<div class="profile-usertitle-job">#}
-{#						Developer#}
-{#					</div>#}
+					<div class="profile-usertitle-degree">
+						{{ user.degree_student }}
+					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->

@@ -25,6 +25,9 @@ urlpatterns = [
     path(r'register/', SignUpView.as_view(), name = 'reg_page'),
     path(r'login/', LoginView.as_view(template_name='educportal/login.html'), name = 'login_page'),
     path(r'logout/', LogoutView.as_view(), name = 'logout'),
-    path(r'profile/', TemplateView.as_view(template_name='educportal/profile_page.html'), name = 'profile_page')
+    path(r'profile/', TemplateView.as_view(template_name='educportal/profile_page.html'), name = 'profile_page'),
+    path(r'bachelor/', TemplateView.as_view(template_name='educportal/bachelor_page.html'), name = 'bachelor_page'),
+    path(r'master/', TemplateView.as_view(template_name='educportal/master_page.html'), name = 'master_page'),
+    path(r'aspirant/', TemplateView.as_view(template_name='educportal/aspirant_page.html'), name = 'aspirant_page'),
 
 ]

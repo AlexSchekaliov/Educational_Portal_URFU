@@ -11,7 +11,7 @@ class SignUpForm(ModelForm):
         strip=False,
         help_text='Введите пароль повторно.'
     )
-    select_group = forms.ModelChoiceField(queryset=AcademicGroup.objects.all(),required=True)
+    academic_group = forms.ModelChoiceField(queryset=AcademicGroup.objects.all(),required=True)
 
     def clean_username(self):
         username = self.cleaned_data["username"]
@@ -43,7 +43,7 @@ class SignUpForm(ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password','phone_number')
+        fields = ('username', 'first_name', 'last_name', 'email','academic_group', 'password','phone_number')
 
 
 # class SignInForm(ModelForm):
