@@ -17,8 +17,12 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 from educportal.views import SignUpView
+from educportal.views import VideoListView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
+
+
+
 
 urlpatterns = [
     path(r'', TemplateView.as_view(template_name='educportal/home_page.html'), name = 'home_page'),
@@ -29,5 +33,6 @@ urlpatterns = [
     path(r'bachelor/', TemplateView.as_view(template_name='educportal/bachelor_page.html'), name = 'bachelor_page'),
     path(r'master/', TemplateView.as_view(template_name='educportal/master_page.html'), name = 'master_page'),
     path(r'aspirant/', TemplateView.as_view(template_name='educportal/aspirant_page.html'), name = 'aspirant_page'),
+    path(r'computernetwork/themes/<int:pk>/videos/', VideoListView.as_view(template_name='educportal/videolist.html'), name = 'video_list')
 
 ]

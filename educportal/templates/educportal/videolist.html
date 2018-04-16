@@ -1,0 +1,65 @@
+{% extends 'educportal/base.html' %}
+{% load staticfiles %}
+{% block header %}
+    {{ block.super }}
+    <title>Test bachelor_page</title>
+{% endblock %}
+{% block header_menu %}
+    {{ block.super }}
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="dropdown-menu" >
+          <ul class="nav nav-sidebar">
+            <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Раздел_1_общий</a></li>
+            <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Раздел_2_общий</a></li>
+            <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Раздел_3_общий</a></li>
+            <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Раздел_4_общий</a></li>
+          </ul>
+            {% if user.level_access >= 1 %}
+
+            <ul class="nav nav-sidebar">
+                <li><a href="#">Компьютерные сети<span class="caret"></span></a>
+                    <ul class="nav nav-sidebar " style=" padding-left: 20px">
+                          <li><a href="{% url 'video_list' theme.pk = 1 %}">Общие сведения о компьютерных сетях</a></li>
+                          <li><a href="#">Физический уровень</a></li>
+                          <li><a href="#">Канальный уровень</a></li>
+                          <li><a href="#">Канальный уровень</a></li>
+                          <li><a href="#">Сетевой уровень</a></li>
+                          <li><a href="#">Транспортный уровень</a></li>
+                          <li><a href="#">Прикладной уровень</a></li>
+                          <li><a href="#">Транспортный уровень</a></li>
+                          <li><a href="#">Транспортный уровень</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Продвинутые темы</a></li>
+                          <li><a href="#">Заключение</a></li>
+                    </ul>
+                </li>
+            <li><a href="http://bootstrap-3.ru/examples/dashboard/">Раздел_6_скрытый</a></li>
+            <li><a href="http://bootstrap-3.ru/examples/dashboard/">Раздел_7_скрытый</a></li>
+            <li><a href="http://bootstrap-3.ru/examples/dashboard/">Раздел_8_скрытый</a></li>
+            <li><a href="http://bootstrap-3.ru/examples/dashboard/">Раздел_9_скрытый</a></li>
+            <li><a href="http://bootstrap-3.ru/examples/dashboard/">Раздел_10_скрытый</a></li>
+            </ul>
+
+            {% endif %}
+
+
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+             <ul class="nav nav-sidebar " style=" padding-left: 20px">
+
+                 {% for videolist in object_list %}
+                     <li><a href="{{ videolist.link_to_youtube }}">{{ videolist.name }}</a>></li>
+                 {% endfor %}
+             </ul>
+        </div>
+      </div>
+</div>
+    {% endblock %}
+{% block scripts %}
+            {{ block.super }}
+            <script src="{% static "educportal/js/dropdown_menu.js" %}"></script>
+{% endblock %}

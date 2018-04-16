@@ -28,6 +28,45 @@ class AcademicGroup(models.Model):
         verbose_name_plural = "Академические группы"
 
 
+class Discipline(models.Model):
+
+    name = models.CharField(max_length=200, verbose_name="Название дисциплины")
+
+    def __str__(self):
+        return u"%s" % self.name
+    class Meta:
+
+        verbose_name = "Дисциплина"
+        verbose_name_plural = "Дисциплины"
+
+class ThemeDiscipline(models.Model):
+
+    name = models.CharField(max_length=200, verbose_name="Название темы")
+    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return u"%s" % self.name
+
+    class Meta:
+        verbose_name = "Тема дисциплины"
+        verbose_name_plural = "Темы дисциплин"
+
+class VideoPost(models.Model):
+
+    name = models.CharField(max_length=200, verbose_name="Название видеопоста")
+    link_to_youtube = models.CharField(max_length=200, unique= True, verbose_name="Ссылка на youtube")
+    theme = models.ForeignKey(ThemeDiscipline, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return u"%s" % self.name
+
+    class Meta:
+        verbose_name = "Видеопост"
+        verbose_name_plural = "Видеопосты"
+
+
+
+
 class User(AbstractUser):
     email = models.EmailField(verbose_name='Email', unique=True)
     phone_number = PhoneNumberField(verbose_name='Телефон', blank = True,null = True)
