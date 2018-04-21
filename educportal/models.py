@@ -31,6 +31,7 @@ class AcademicGroup(models.Model):
 class Discipline(models.Model):
 
     name = models.CharField(max_length=200, verbose_name="Название дисциплины")
+    for_super_section = models.ForeignKey(StudentGroupAccess, on_delete=models.CASCADE,null = True)
 
     def __str__(self):
         return u"%s" % self.name
