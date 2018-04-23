@@ -28,9 +28,10 @@ class AcademicGroup(models.Model):
         verbose_name_plural = "Академические группы"
 
 
-class Discipline(models.Model):
+class Section(models.Model):
 
     name = models.CharField(max_length=200, verbose_name="Название дисциплины")
+    is_guest = models.BooleanField(default=False)
     for_super_section = models.ForeignKey(StudentGroupAccess, on_delete=models.CASCADE,null = True)
 
     def __str__(self):
@@ -40,10 +41,10 @@ class Discipline(models.Model):
         verbose_name = "Дисциплина"
         verbose_name_plural = "Дисциплины"
 
-class ThemeDiscipline(models.Model):
+class Theme(models.Model):
 
     name = models.CharField(max_length=200, verbose_name="Название темы")
-    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE)
+    discipline = models.ForeignKey(Section, on_delete=models.CASCADE)
 
     def __str__(self):
         return u"%s" % self.name
@@ -56,7 +57,7 @@ class VideoPost(models.Model):
 
     name = models.CharField(max_length=200, verbose_name="Название видеопоста")
     link_to_youtube = models.CharField(max_length=200, unique= True, verbose_name="Ссылка на youtube")
-    theme = models.ForeignKey(ThemeDiscipline, on_delete=models.CASCADE)
+    theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
 
     def __str__(self):
         return u"%s" % self.name
