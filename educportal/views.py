@@ -29,7 +29,7 @@ class SectionListView(TemplateView):
             context['title_page']= self.kwargs['title_page']
             return context
 
-class VideoListView(TemplateView):
+class VideoListView(SectionListView):
     template_name = 'educportal/videolist.html'
 
     def get_queryset(self):
