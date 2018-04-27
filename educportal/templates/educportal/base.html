@@ -19,9 +19,9 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-left">
             <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Главная</a></li>
-            <li><a href="{% url 'bachelor_page' %}">Бакалаврам</a></li>
-            <li><a href="{% url 'master_page' %}">Магистрам</a></li>
-            <li><a href="{% url 'aspirant_page' %}">Аспирантам</a></li>
+              {% for super_section_item in super_section_list %}
+                <li><a href="{% url 'bachelor_page' super_section_item.pk %}">{{ super_section_item.name }}</a></li>
+              {% endfor %}
             <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Сотрудникам</a></li>
             <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Помощь</a></li>
           </ul>

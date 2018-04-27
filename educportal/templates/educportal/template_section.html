@@ -13,10 +13,10 @@
       {% block leftsidebar %}
             <div class="col-sm-3 col-md-2 sidebar" id="dropdown-menu" >
             <ul class="nav nav-sidebar">
-                {% for section_guest in section_guest %}
-                    <li><a href="#">{{ section_guest.name }}<span class="caret"></span></a>
+                {% for section_guest_item in section_guest %}
+                    <li><a href="#">{{ section_guest_item.name }}<span class="caret"></span></a>
                         <ul class="nav nav-sidebar " style=" padding-left: 20px">
-                        {% for themes_item in section_guest.theme_set.all%}
+                        {% for themes_item in section_guest_item.theme_set.all%}
                             <li><a href="{% url 'video_list' themes_item.pk %}">{{ themes_item.name}}</a></li>
                         {% endfor %}
                         </ul>
@@ -25,10 +25,10 @@
             </ul>
             {% if user.level_access >= 1 %}
             <ul class="nav nav-sidebar">
-                {% for section in section %}
-                    <li><a href="#">{{ section.name }}<span class="caret"></span></a>
+                {% for section_item in section %}
+                    <li><a href="#">{{ section_item.name }}<span class="caret"></span></a>
                         <ul class="nav nav-sidebar " style=" padding-left: 20px">
-                        {% for themes_item in section.theme_set.all%}
+                        {% for themes_item in section_item.theme_set.all%}
                             <li><a href="{% url 'video_list' themes_item.pk %}">{{ themes_item.name}}</a></li>
                         {% endfor %}
                         </ul>

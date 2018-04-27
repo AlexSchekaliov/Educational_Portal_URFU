@@ -3,6 +3,17 @@ from django.contrib.auth.models import AbstractUser, Group
 from phonenumber_field.modelfields import PhoneNumberField
 
 
+class SuperSection (models.Model):
+    name = models.CharField(max_length=10, unique=True, verbose_name="Название супер раздела")
+
+    def __str__(self):
+        return u"%s" % self.name
+
+    class Meta:
+        verbose_name = "Супер раздел"
+        verbose_name_plural = "Супер разделы"
+
+
 class StudentGroupAccess(models.Model):
     level_access = models.PositiveSmallIntegerField()
     degree = models.CharField(max_length=10, blank=False, null=False, unique=True)
@@ -32,7 +43,9 @@ class Section(models.Model):
 
     name = models.CharField(max_length=200, verbose_name="Название дисциплины")
     is_guest = models.BooleanField(default=False)
-    for_super_section = models.ForeignKey(StudentGroupAccess, on_delete=models.CASCADE,null = True)
+    access_section = models.ForeignKey(StudentGroupAccess, on_delete=models.CASCADE,null = True)
+    super_section = models.ForeignKey(SuperSection, on_delete=models.CASCADE, null= True)
+
 
     def __str__(self):
         return u"%s" % self.name

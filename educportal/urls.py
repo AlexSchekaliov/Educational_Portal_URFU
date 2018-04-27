@@ -24,16 +24,18 @@ from django.contrib.auth.views import LogoutView
 
 
 urlpatterns = [
-    path(r'', TemplateView.as_view(template_name='educportal/home_page.html'), name = 'home_page'),
+    path(r'', TemplateView.as_view(template_name="educportal/home_page.html"), name = 'home_page'),
     path(r'register/', SignUpView.as_view(), name = 'reg_page'),
     path(r'login/',    LoginView.as_view(template_name='educportal/login.html'), name = 'login_page'),
     path(r'logout/',   LogoutView.as_view(), name = 'logout'),
     path(r'profile/',  TemplateView.as_view(template_name='educportal/profile_page.html'), name = 'profile_page'),
-    path(r'bachelor/', SectionListView.as_view(),{'degree': 'Бакалавр','title_page': 'Bachalor_page'}, name = 'bachelor_page'),
-    path(r'master/',   SectionListView.as_view(),{'degree': 'Магистр', 'title_page': 'Master_page'}, name = 'master_page'),
-    path(r'aspirant/', SectionListView.as_view(),{'degree': 'Аспирант', 'title_page': 'Aspirant_page'}, name = 'aspirant_page'),
+    path(r'degrees/<int:pk>/', SectionListView.as_view(), name='bachelor_page'),
+    # path(r'bachelor/', SectionListView.as_view(),{'degree': 'Бакалавр','title_page': 'Bachalor_page'}, name = 'bachelor_page'),
+    path(r'master/',   SectionListView.as_view(),name = 'master_page'),
+    path(r'aspirant/', SectionListView.as_view(),name = 'aspirant_page'),
+    path(r'computernetwork/themes/<int:pk>/videos/', VideoListView.as_view(),name = 'video_list'),
+
     path(r'computernetwork/themes/generalinfo/videos', TemplateView.as_view(template_name='educportal/video_list_general_info.html'), name = 'video_list_general_info'),
     path(r'computernetwork/themes/physicallayer/videos', TemplateView.as_view(template_name='educportal/video_list_physical_layer.html'), name = 'video_list_physical_layer'),
-    path(r'computernetwork/themes/<int:pk>/videos/', VideoListView.as_view(),{'degree': 'Бакалавр','title_page': 'Bachalor_page'}, name = 'video_list')
 
 ]
