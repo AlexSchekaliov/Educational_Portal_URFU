@@ -33,8 +33,7 @@ urlpatterns = [
     # path(r'bachelor/', SectionListView.as_view(),{'degree': 'Бакалавр','title_page': 'Bachalor_page'}, name = 'bachelor_page'),
     path(r'master/',   SectionListView.as_view(),name = 'master_page'),
     path(r'aspirant/', SectionListView.as_view(),name = 'aspirant_page'),
-    path(r'computernetwork/themes/<int:pk>/videos/', VideoListView.as_view(),name = 'video_list'),
-
+    path(r'<int:supersection_item>/themes/<int:item_id>/videos', VideoListView.as_view(),name = 'post_list'),
     path(r'computernetwork/themes/generalinfo/videos', TemplateView.as_view(template_name='educportal/video_list_general_info.html'), name = 'video_list_general_info'),
     path(r'computernetwork/themes/physicallayer/videos', TemplateView.as_view(template_name='educportal/video_list_physical_layer.html'), name = 'video_list_physical_layer'),
 

@@ -95,4 +95,8 @@ class User(AbstractUser):
     def degree_student(self):
         return self.academic_group.group_access.degree
 
+    @property
+    def academ_group_student(self):
+        return self.academic_group.group_name
+
 # Create your models here.

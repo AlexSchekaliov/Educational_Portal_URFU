@@ -64,7 +64,51 @@
 		</div>
 		<div class="col-md-9">
             <div class="profile-content">
-			   Some user related content goes here...
+			   <div class = "container-fluid">
+                   <div class="row">
+                       <div class="col-md-3 col-md-offset-1">
+                           <p>Имя:</p>
+                       </div>
+                       <div class = "col-md-6">
+                           <p>{{user.first_name|title}}</p>
+                       </div>
+                        <div class="col-md-3 col-md-offset-1">
+                           <p>Фамилия:</p>
+                       </div>
+                       <div class = "col-md-6">
+                           <p>{{user.last_name|title}}</p>
+                       </div>
+                        <div class="col-md-3 col-md-offset-1">
+                           <p>Email:</p>
+                       </div>
+                       <div class = "col-md-6">
+                           <p>{{user.email}}</p>
+                       </div>
+                        <div class="col-md-3 col-md-offset-1">
+                           <p>Мобильный номер:</p>
+                       </div>
+                       <div class = "col-md-6">
+                           {% if user.phone_number %}
+                                <p>user.phone_number</p>
+                           {% else %}
+                                <p>Не назначен</p>
+                           {% endif %}
+{#                           <p>{{user.phone_number|default_if_none:"Не назначено"}}</p>#}
+                       </div>
+                        <div class="col-md-3 col-md-offset-1">
+                           <p>Степень освоения ВПО:</p>
+                       </div>
+                       <div class = "col-md-6">
+                           <p>{{user.degree_student|title}}</p>
+                       </div>
+                       <div class="col-md-3 col-md-offset-1">
+                           <p>Академическая группа:</p>
+                       </div>
+                       <div class = "col-md-6">
+                           <p>{{user.academ_group_student|title}}</p>
+                       </div>
+
+               </div>
             </div>
 		</div>
 	</div>

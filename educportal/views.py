@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from django.views.generic import ListView
 
 from educportal.forms import SignUpForm
-from educportal.models import VideoPost, SuperSection
+from educportal.models import VideoPost, SuperSection, Theme
 from educportal.models import Section
 
 
@@ -38,16 +38,17 @@ class SectionListView(TemplateView):
             return context
 
         # def get_queryset(self):
-        #     return Section.objects.filter(for_super_section__pk=self.kwargs['pk'])
+        #      return Section.objects.filter(super_section__pk=self.kwargs['pk'])
 
 
-class VideoListView(SectionListView):
-    template_name = 'educportal/videolist.html'
-
+class VideoListView(ListView):
+    template_name = 'educportal/postlist.html'
+    context_object_name = 'post_list'
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['object_list'] = self.get_queryset()
+        context = super(VideoListView,self).get_context_data(**kwargs)
+        context ['supersection'] = self.kwargs['supersection_item']
+        context ['item_theme'] = self.kwargs['item_id']
         return context
 
     def get_queryset(self):
-        return VideoPost.objects.filter(theme__pk=self.kwargs['pk'])
+        return VideoPost.objects.filter(theme__pk=self.kwargs['item_id'])

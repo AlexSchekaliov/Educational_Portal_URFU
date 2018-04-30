@@ -5,4 +5,5 @@ django-phonenumber-field==2.0.0
 django-select2==6.0.2
 django-widget-tweaks==1.4.1
 phonenumberslite==8.9.2
+pytils==0.3
 pytz==2018.3
