@@ -45,19 +45,8 @@ class SignUpForm(ModelForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email','academic_group', 'password','phone_number')
 
+class ChangeUserInfoForm(ModelForm):
 
-# class SignInForm(ModelForm):
-#
-#     def clean(self):
-#         super().clean()
-#         username = self.cleaned_data["username"]
-#         password = self.cleaned_data["password"]
-#         user = authenticate(username=username, password=password)
-#         if user is None:
-#             self.add_error(None, 'Такого пользователя не существует. Возможно вы некорректно ввели логин или пароль!')
-#         return self.cleaned_data
-#
-#
-#     class Meta:
-#         model = User
-#         fields=('username', 'password')
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'phone_number')

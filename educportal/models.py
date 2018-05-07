@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, Group
+from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 
 
@@ -66,18 +66,20 @@ class Theme(models.Model):
         verbose_name = "Тема дисциплины"
         verbose_name_plural = "Темы дисциплин"
 
-class VideoPost(models.Model):
+class Post(models.Model):
 
-    name = models.CharField(max_length=200, verbose_name="Название видеопоста")
-    link_to_youtube = models.CharField(max_length=200, unique= True, verbose_name="Ссылка на youtube")
-    theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, verbose_name="Название поста", null=False)
+    url_to_videopost = models.CharField(max_length=200, unique=True, blank=True, verbose_name="Ссылка на видеоролик", null=True)
+    content = models.TextField(null=True, blank=True, verbose_name='Содержимое поста')
+    post_type = models.BooleanField(default=True, null=False, verbose_name='Тип поста. 1-пост, 0-видеопост')
+    theme = models.ForeignKey(Theme, on_delete=models.CASCADE, null=False)
 
     def __str__(self):
-        return u"%s" % self.name
+        return u"%s" % self.title
 
     class Meta:
-        verbose_name = "Видеопост"
-        verbose_name_plural = "Видеопосты"
+        verbose_name = "Пост"
+        verbose_name_plural = "Посты"
 
 
 

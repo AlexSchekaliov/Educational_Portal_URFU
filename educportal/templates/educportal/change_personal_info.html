@@ -1,0 +1,75 @@
+{% extends 'educportal/profile_page.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+{% block header %}
+    {{ block.super }}
+{% endblock %}
+{% block header_menu %}
+    {{ block.super }}
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+    <div class="row profile">
+        {% block leftsidebar %}
+            {{ block.super }}
+        {% endblock %}
+        {% block contentinfo %}
+            <div class="col-md-9">
+                <div class="profile-content">
+                        <form class="form-horizontal" method="post" id="changeUserInfo-form" novalidate>
+                            {% csrf_token %}
+                            <div class="form-group {% if form.username.errors  %}has-error{% endif %}">
+                                <label class="control-label col-xs-3">Изменение логина:</label>
+                                <div class="col-xs-9">
+                                    {{ form.username|add_class:'form-control'|append_attr:'placeholder:Введите новый логин' }}
+                                    {% if form.username.errors %}
+                                    <p class="text-danger">{{ form.username.errors.as_text }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group {% if form.email.errors  %}has-error{% endif %}">
+                                <label class="control-label col-xs-3">Изменение email:</label>
+                                <div class="col-xs-9">
+                                {{ form.email|add_class:'form-control'|append_attr:'placeholder:Введите новый email' }}
+                                {% if form.email.errors %}
+                                <p class="text-danger">{{ form.email.errors.as_text }}</p>
+                                {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group {% if form.phone_number.errors  %}has-error{% endif %}">
+                                <label class="control-label col-xs-3 text-left">Изменение мобильного номера:</label>
+                                <div class="col-xs-9">
+                                    {{ form.phone_number|add_class:'form-control'|append_attr:'placeholder:Введите новый мобильный номер' }}
+                                    {% if form.phone_number.errors %}
+                                        <p class="text-danger">{{ form.phone_number.errors.as_text }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-offset-3 col-xs-9">
+                                <input type="submit" class="btn btn-primary" name="btn-reg" form="changeUserInfo-form" value="Сохранить изменения">
+                                    <a class="btn btn-danger" href="{% url 'change_user_password' %}" role="button">Изменить пароль</a>
+                                </div>
+                            </div>
+                        </form>
+                        {% if form.non_field_errors %}
+                            {% for err in form.non_field_errors %}
+                                <div class="alert alert-danger">{{ err }}</div>
+                            {% endfor %}
+                          {% endif %}
+                </div>
+            </div>
+            {% endblock %}
+    </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static "educportal/js/jquery.maskedinput.js" %}"></script>
+    <script type="text/javascript">
+        $('document').ready(function()
+        {
+            $("#{{form.phone_number.id_for_label}}").mask('+7(999) 999-9999');
+        });
+    </script>
+{% endblock %}

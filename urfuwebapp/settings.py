@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 	'phonenumber_field',
     'widget_tweaks',
 	'django_select2',
+    'django_summernote',
 	'educportal',
 
 ]

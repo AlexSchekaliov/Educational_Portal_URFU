@@ -13,12 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.urls import path, reverse_lazy
 from django.views.generic import TemplateView
 
-from educportal.views import SignUpView, SectionListView, VideoListView
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.views import LogoutView
+from educportal.views import SignUpView, SectionListView, ThemeListView, PostListView, PostDetailView, ChangeUserInfoView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView,PasswordChangeDoneView
 
 
 
@@ -29,12 +28,12 @@ urlpatterns = [
     path(r'login/',    LoginView.as_view(template_name='educportal/login.html'), name = 'login_page'),
     path(r'logout/',   LogoutView.as_view(), name = 'logout'),
     path(r'profile/',  TemplateView.as_view(template_name='educportal/profile_page.html'), name = 'profile_page'),
+    path(r'profile/personal_info',  TemplateView.as_view(template_name='educportal/personal_info.html'), name = 'personal_info'),
+    path(r'profile/change_personal_info', ChangeUserInfoView.as_view(), name = 'change_personal_info'),
+    path(r'profile/change_personal_info/password_change/', PasswordChangeView.as_view(template_name='educportal/change_user_password.html', success_url=reverse_lazy('change_user_password_done')), name = 'change_user_password'),
+    path(r'profile/change_personal_info/password_change/done', PasswordChangeDoneView.as_view(template_name='educportal/personal_info.html'), name = 'change_user_password_done'),
     path(r'degrees/<int:pk>/', SectionListView.as_view(), name='bachelor_page'),
-    # path(r'bachelor/', SectionListView.as_view(),{'degree': 'Бакалавр','title_page': 'Bachalor_page'}, name = 'bachelor_page'),
-    path(r'master/',   SectionListView.as_view(),name = 'master_page'),
-    path(r'aspirant/', SectionListView.as_view(),name = 'aspirant_page'),
-    path(r'<int:supersection_item>/themes/<int:item_id>/videos', VideoListView.as_view(),name = 'post_list'),
-    path(r'computernetwork/themes/generalinfo/videos', TemplateView.as_view(template_name='educportal/video_list_general_info.html'), name = 'video_list_general_info'),
-    path(r'computernetwork/themes/physicallayer/videos', TemplateView.as_view(template_name='educportal/video_list_physical_layer.html'), name = 'video_list_physical_layer'),
-
+    path(r'<int:section_id>/themes', ThemeListView.as_view(),name = 'theme_list'),
+    path(r'<int:section_id>/themes/<int:item_id>/posts', PostListView.as_view(),name = 'post_list'),
+    path(r'<int:section_id>/themes/<int:item_id>/post/<int:post_item>', PostDetailView.as_view(), name = 'post_detail'),
 ]

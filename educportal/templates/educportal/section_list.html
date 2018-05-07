@@ -1,0 +1,42 @@
+{% extends 'educportal/extended_content.html' %}
+{% load staticfiles %}
+{% block header %}
+    {{ block.super }}
+    <title>{{ title_page }}</title>
+{% endblock %}
+{% block header_menu %}
+    {{ block.super }}
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+      <div class="row">
+      {% block leftsidebar %}
+            <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                {% for section_guest_item in section_guest %}
+                    <li><a href="{% url 'theme_list' section_id=section_guest_item.pk %}">{{ section_guest_item.name }}</a></li>
+                {% endfor %}
+            </ul>
+            {% if user.level_access >= 1 %}
+            <ul class="nav nav-sidebar">
+                {% for section_item in section %}
+                    <li><a href="{% url 'theme_list' section_id=section_item.pk  %}">{{ section_item.name }}</a></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+      {% endblock %}
+        {% block contentinfo %}
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+             <p>
+                В текущем разделе пользователь может выбрать интересующую его дисциплину из навигационного меню, расположенного в левой части веб-страницы.
+                 Список тем выбранной дисциплины отобразится в данном поле.
+             </p>
+        </div>
+        {% endblock %}
+      </div>
+</div>
+    {% endblock %}
+{% block scripts %}
+            {{ block.super }}
+{% endblock %}

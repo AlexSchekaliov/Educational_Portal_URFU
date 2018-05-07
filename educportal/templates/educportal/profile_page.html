@@ -1,4 +1,4 @@
-{% extends 'educportal/base.html' %}
+{% extends 'educportal/extended_content.html' %}
 {% load staticfiles %}
 {% block header %}
     {{ block.super}}
@@ -11,7 +11,9 @@
 {% block content %}
     <div class="container-fluid">
     <div class="row profile">
-		<div class="col-md-3">
+        {% block leftsidebar %}
+
+            <div class="col-md-3">
 			<div class="profile-sidebar">
 				<!-- SIDEBAR USERPIC -->
 {#				<div class="profile-userpic">#}
@@ -35,22 +37,18 @@
 {#				</div>#}
 				<!-- END SIDEBAR BUTTONS -->
 				<!-- SIDEBAR MENU -->
+
 				<div class="profile-usermenu">
 					<ul class="nav">
 						<li class="active">
-							<a href="#">
-							<i class="glyphicon glyphicon-home"></i>
-                            Общая информация</a>
-						</li>
-						<li>
-							<a href="#">
+							<a href="{% url 'personal_info' %}">
 							<i class="glyphicon glyphicon-user"></i>
-							Настройки аккаунта </a>
+                            Персональная информация</a>
 						</li>
 						<li>
-							<a href="#" target="_blank">
-							<i class="glyphicon glyphicon-ok"></i>
-							Какой-то раздел </a>
+							<a href="{% url 'change_personal_info' %}">
+							<i class="glyphicon glyphicon-pencil"></i>
+							Изменить персональные данные </a>
 						</li>
 						<li>
 							<a href="#">
@@ -62,55 +60,16 @@
 				<!-- END MENU -->
 			</div>
 		</div>
-		<div class="col-md-9">
-            <div class="profile-content">
-			   <div class = "container-fluid">
-                   <div class="row">
-                       <div class="col-md-3 col-md-offset-1">
-                           <p>Имя:</p>
-                       </div>
-                       <div class = "col-md-6">
-                           <p>{{user.first_name|title}}</p>
-                       </div>
-                        <div class="col-md-3 col-md-offset-1">
-                           <p>Фамилия:</p>
-                       </div>
-                       <div class = "col-md-6">
-                           <p>{{user.last_name|title}}</p>
-                       </div>
-                        <div class="col-md-3 col-md-offset-1">
-                           <p>Email:</p>
-                       </div>
-                       <div class = "col-md-6">
-                           <p>{{user.email}}</p>
-                       </div>
-                        <div class="col-md-3 col-md-offset-1">
-                           <p>Мобильный номер:</p>
-                       </div>
-                       <div class = "col-md-6">
-                           {% if user.phone_number %}
-                                <p>user.phone_number</p>
-                           {% else %}
-                                <p>Не назначен</p>
-                           {% endif %}
-{#                           <p>{{user.phone_number|default_if_none:"Не назначено"}}</p>#}
-                       </div>
-                        <div class="col-md-3 col-md-offset-1">
-                           <p>Степень освоения ВПО:</p>
-                       </div>
-                       <div class = "col-md-6">
-                           <p>{{user.degree_student|title}}</p>
-                       </div>
-                       <div class="col-md-3 col-md-offset-1">
-                           <p>Академическая группа:</p>
-                       </div>
-                       <div class = "col-md-6">
-                           <p>{{user.academ_group_student|title}}</p>
-                       </div>
-
-               </div>
+        {% endblock %}
+		{% block contentinfo %}
+            <div class="col-md-9">
+                <div class="profile-content">
+                    <p>
+                        В данном разделе будет отображаться вся персональная информация пользователя
+                    </p>
+                </div>
             </div>
-		</div>
+        {% endblock %}
 	</div>
 </div>
 {% endblock %}
