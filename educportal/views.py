@@ -43,7 +43,7 @@ class ThemeListView(ListView):
         return context
 
     def get_queryset(self):
-        return Theme.objects.filter(discipline__pk=self.kwargs['section_id'])
+        return Theme.objects.filter(discipline__pk=self.kwargs['section_id']).order_by('created_date')
 
 
 class PostListView(ListView):
@@ -54,7 +54,7 @@ class PostListView(ListView):
         return context
 
     def get_queryset(self):
-        return Post.objects.filter(theme__pk=self.kwargs['item_id'])
+        return Post.objects.filter(theme__pk=self.kwargs['item_id']).order_by('created_date')
 
 class PostDetailView(DetailView):
     template_name = 'educportal/post_detail.html'
@@ -66,7 +66,7 @@ class PostDetailView(DetailView):
         return context
 
     def get_queryset(self):
-        return Post.objects.filter(theme__pk=self.kwargs['item_id'])
+        return Post.objects.filter(theme__pk=self.kwargs['item_id']).order_by('created_date')
 
 
 class ChangeUserInfoView(UpdateView):

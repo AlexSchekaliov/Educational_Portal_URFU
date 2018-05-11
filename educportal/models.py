@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -57,6 +58,7 @@ class Section(models.Model):
 class Theme(models.Model):
 
     name = models.CharField(max_length=200, verbose_name="Название темы")
+    created_date = models.DateTimeField(default=timezone.now)
     discipline = models.ForeignKey(Section, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -72,6 +74,7 @@ class Post(models.Model):
     url_to_videopost = models.CharField(max_length=200, unique=True, blank=True, verbose_name="Ссылка на видеоролик", null=True)
     content = models.TextField(null=True, blank=True, verbose_name='Содержимое поста')
     post_type = models.BooleanField(default=True, null=False, verbose_name='Тип поста. 1-пост, 0-видеопост')
+    created_date = models.DateTimeField(default=timezone.now)
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE, null=False)
 
     def __str__(self):

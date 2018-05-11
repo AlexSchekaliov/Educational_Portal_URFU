@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
 	'django_select2',
     'django_summernote',
+    'django_activeurl',
 	'educportal',
 
 ]

@@ -1,5 +1,6 @@
 {% extends 'educportal/extended_content.html' %}
 {% load staticfiles %}
+{% load activeurl %}
 {% block header %}
     {{ block.super}}
     <title>Test profile_page</title>
@@ -39,8 +40,9 @@
 				<!-- SIDEBAR MENU -->
 
 				<div class="profile-usermenu">
+                    {% activeurl %}
 					<ul class="nav">
-						<li class="active">
+						<li>
 							<a href="{% url 'personal_info' %}">
 							<i class="glyphicon glyphicon-user"></i>
                             Персональная информация</a>
@@ -56,6 +58,7 @@
 							Помощь </a>
 						</li>
 					</ul>
+                    {% endactiveurl %}
 				</div>
 				<!-- END MENU -->
 			</div>

@@ -32,8 +32,8 @@ urlpatterns = [
     path(r'profile/change_personal_info', ChangeUserInfoView.as_view(), name = 'change_personal_info'),
     path(r'profile/change_personal_info/password_change/', PasswordChangeView.as_view(template_name='educportal/change_user_password.html', success_url=reverse_lazy('change_user_password_done')), name = 'change_user_password'),
     path(r'profile/change_personal_info/password_change/done', PasswordChangeDoneView.as_view(template_name='educportal/personal_info.html'), name = 'change_user_password_done'),
-    path(r'degrees/<int:pk>/', SectionListView.as_view(), name='bachelor_page'),
-    path(r'<int:section_id>/themes', ThemeListView.as_view(),name = 'theme_list'),
-    path(r'<int:section_id>/themes/<int:item_id>/posts', PostListView.as_view(),name = 'post_list'),
-    path(r'<int:section_id>/themes/<int:item_id>/post/<int:post_item>', PostDetailView.as_view(), name = 'post_detail'),
+    path(r'degrees/<int:pk>/', SectionListView.as_view(), name='section_page'),
+    path(r'degrees/<int:supersection_id>/<int:section_id>/themes', ThemeListView.as_view(),name = 'theme_list'),
+    path(r'degrees/<int:supersection_id>/<int:section_id>/themes/<int:item_id>/posts', PostListView.as_view(),name = 'post_list'),
+    path(r'degrees/<int:supersection_id>/<int:section_id>/themes/<int:item_id>/post/<int:post_item>', PostDetailView.as_view(), name = 'post_detail'),
 ]

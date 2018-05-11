@@ -1,5 +1,6 @@
 {% extends 'educportal/base_general.html' %}
 {% load staticfiles %}
+{% load activeurl %}
 {% block header %}
     {{ block.super }}
    <link href="{% static "educportal/styles/dashboard.css"%}" rel="stylesheet">
@@ -17,14 +18,16 @@
           <a class="navbar-brand" href="http://bootstrap-3.ru/examples/dashboard/#">Project name</a>
         </div>
         <div class="navbar-collapse collapse">
+        {% activeurl %}
           <ul class="nav navbar-nav navbar-left">
             <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Главная</a></li>
               {% for super_section_item in super_section_list %}
-                <li><a href="{% url 'bachelor_page' super_section_item.pk %}">{{ super_section_item.name }}</a></li>
+                <li><a href="{% url 'section_page' super_section_item.pk %}">{{ super_section_item.name }}</a></li>
               {% endfor %}
             <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Сотрудникам</a></li>
             <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Помощь</a></li>
           </ul>
+        {% endactiveurl %}
           <form class="navbar-form navbar-left">
             <input type="text" class="form-control" placeholder="Search...">
           </form>
