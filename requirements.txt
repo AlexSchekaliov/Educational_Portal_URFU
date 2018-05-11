@@ -1,10 +1,14 @@
 Babel==2.5.3
 Django==2.0.3
+django-activeurl==0.1.12
 django-appconf==1.0.2
+django-classy-tags==0.8.0
 django-phonenumber-field==2.0.0
 django-select2==6.0.2
 django-summernote==0.8.8.6
 django-widget-tweaks==1.4.1
+lxml==4.2.1
+now==0.0.6
 phonenumberslite==8.9.2
 pytils==0.3
 pytz==2018.3
