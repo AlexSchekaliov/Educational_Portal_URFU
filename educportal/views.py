@@ -1,9 +1,9 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView,TemplateView, ListView, DetailView, UpdateView
 
-from educportal.forms import SignUpForm, ChangeUserInfoForm
-from educportal.models import Post, Theme, User
-from educportal.models import Section
+from educportal.forms import SignUpForm
+from educportal.models import User, Section, Post, Theme, Test
+
 
 
 # Create your views here.
@@ -46,11 +46,16 @@ class ThemeListView(ListView):
         return Theme.objects.filter(discipline__pk=self.kwargs['section_id']).order_by('created_date')
 
 
-class PostListView(ListView):
-    template_name = 'educportal/post_list.html'
+class PostTestListView(ListView):
+    template_name = 'educportal/post_test_list.html'
     context_object_name = 'post_list'
+
+    def get_test(self):
+        return Test.objects.filter(theme__pk=self.kwargs['item_id']).order_by('created_date')
+
     def get_context_data(self, **kwargs):
-        context = super(PostListView,self).get_context_data(**kwargs)
+        context = super(PostTestListView,self).get_context_data(**kwargs)
+        context['test_list'] = self.get_test()
         return context
 
     def get_queryset(self):
@@ -68,6 +73,8 @@ class PostDetailView(DetailView):
     def get_queryset(self):
         return Post.objects.filter(theme__pk=self.kwargs['item_id']).order_by('created_date')
 
+
+# class TaskListView ()
 
 class ChangeUserInfoView(UpdateView):
     model = User

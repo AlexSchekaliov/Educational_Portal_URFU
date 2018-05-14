@@ -47,6 +47,10 @@ class Section(models.Model):
     access_section = models.ForeignKey(StudentGroupAccess, on_delete=models.CASCADE,null = True)
     super_section = models.ForeignKey(SuperSection, on_delete=models.CASCADE, null= True)
 
+    @property
+    def level_access(self):
+        return self.access_section.level_access
+
 
     def __str__(self):
         return u"%s" % self.name
@@ -85,7 +89,68 @@ class Post(models.Model):
         verbose_name_plural = "Посты"
 
 
+class Test(models.Model):
+    name = models.CharField(max_length=200, verbose_name="Название теста", null = False)
+    theme = models.ForeignKey(Theme,on_delete=models.CASCADE, null = False)
+    created_date = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return u"%s" % self.name
 
+    class Meta:
+        verbose_name = "Тест"
+        verbose_name_plural = "Тесты"
+
+
+class Task(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Заголовок задания", null=False)
+    task_content = models.TextField(verbose_name='Текст задания', null=False)
+    serial_number = models.PositiveSmallIntegerField(verbose_name='Порядковый номер задания')
+    allowable_number_errors = models.PositiveSmallIntegerField(verbose_name='Допустимое количество ошибок')
+    test = models.ForeignKey(Test, on_delete=models.CASCADE, null=False)
+
+    def __str__(self):
+        return u"%s" % self.title
+
+    class Meta:
+        verbose_name = "Задание"
+        verbose_name_plural = "Задания"
+
+
+class Student(models.Model):
+    academic_group = models.ForeignKey(AcademicGroup, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Студент"
+        verbose_name_plural = "Студенты"
+
+class Department(models.Model):
+    name = models.CharField(max_length=200, verbose_name="Название департамента", null=False)
+
+    def __str__(self):
+        return '%s' % self.name
+
+    class Meta:
+        verbose_name = "Департамент"
+        verbose_name_plural = "Департаменты"
+
+class Teacher(models.Model):
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=False)
+
+    class Meta:
+        verbose_name = "Преподаватель"
+        verbose_name_plural = "Преподаватели"
+
+class TaskAnswer(models.Model):
+    task_answer_content = models.TextField(verbose_name="Текст ответа", null=False)
+    is_correct = models.BooleanField(default=False, verbose_name='Корректность ответа')
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, null=False)
+
+    def __str__(self):
+        return '%s %d' % (self.task.title, self.pk)
+
+    class Meta:
+        verbose_name = "Ответ на задание"
+        verbose_name_plural = "Ответы на задания"
 
 class User(AbstractUser):
     email = models.EmailField(verbose_name='Email', unique=True)

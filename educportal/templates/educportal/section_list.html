@@ -19,13 +19,15 @@
                     <li><a href="{% url 'theme_list' supersection_id=section_guest_item.super_section.pk section_id=section_guest_item.pk %}">{{ section_guest_item.name }}</a></li>
                 {% endfor %}
             </ul>
-            {% if user.level_access >= 1 %}
+
             <ul class="nav nav-sidebar">
                 {% for section_item in section %}
+                    {% if user.level_access >= section_item.level_access %}
                     <li><a href="{% url 'theme_list' supersection_id=section_item.super_section.pk section_id=section_item.pk  %}">{{ section_item.name }}</a></li>
+                    {% endif %}
                 {% endfor %}
             </ul>
-            {% endif %}
+
         </div>
           {% endactiveurl %}
       {% endblock %}

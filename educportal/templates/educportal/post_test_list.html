@@ -17,6 +17,9 @@
                 {% for postlist in post_list %}
                     <li><a href="{% url 'post_detail' supersection_id=postlist.theme.discipline.super_section.pk section_id=postlist.theme.discipline.pk item_id=postlist.theme.pk post_item=postlist.pk %}">{{ postlist.title }}</a></li>
                 {% endfor %}
+                {% for testlist in test_list %}
+                    <li class ='task'><a href="#">{{ testlist.name }}</a></li>
+                {% endfor %}
             </ul>
             </div>
         {% endactiveurl %}

@@ -101,6 +101,10 @@ body {
   margin-top: 0;
 }
 
+.task > a {
+  color: rgba(236, 124, 38, 0.88);
+  text-shadow: 1px 1px 1px lightblue;
+}
 
 /*
  * Placeholder dashboard ideas
