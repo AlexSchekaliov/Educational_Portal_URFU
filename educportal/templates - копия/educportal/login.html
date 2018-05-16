@@ -1,0 +1,58 @@
+{% extends 'educportal/base.html' %}
+{% load widget_tweaks %}
+{% block header %}
+    {{ block.super }}
+    <title>Test auth</title>>
+{% endblock %}
+{% block header_menu %}
+    {{ block.super }}
+{% endblock %}
+{% block content %}
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+                <h2 class="modal-title">Авторизация</h2>
+            </div>
+          <div class="modal-body">
+              <form class="form-horizontal" method="post" id="auth_form" novalidate>
+                {% csrf_token %}
+                    <div class="form-group {% if form.username.errors  %}has-error{% endif %}">
+                      <label class="control-label col-xs-3">Логин:</label>
+                      <div class="col-xs-9">
+                        {{ form.username|add_class:'form-control'|append_attr:'placeholder:Введите логин' }}
+                        {% if form.username.errors %}
+                            <p class="text-danger">{{ form.username.errors.as_text }}</p>
+                        {% endif %}
+                      </div>
+                    </div>
+                  <div class="form-group {% if form.password.errors  %}has-error{% endif %}">
+                    <label class="control-label col-xs-3">{{ form.password.label }}</label>
+                    <div class="col-xs-9">
+                      {{ form.password|add_class:'form-control'|append_attr:'placeholder:Введите пароль' }}
+                        {% if form.password.errors %}
+                            <p class="text-danger">{{ form.password.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+                  </div>
+                 <div class="form-group">
+                    <div class="col-xs-offset-3 col-xs-9">
+                      <input type="submit" class="btn btn-primary" form="auth_form" name="btn-auth" id="btn-auth" value="Войти">
+                      <a class="btn btn-primary" href="{% url 'home_page' %}" role="button">Вернуться на главную</a>
+                    </div>
+                </div>
+              </form> 
+          </div>
+          <div class="modal-footer">
+              {% if form.non_field_errors %}
+                {% for err in form.non_field_errors %}
+                    <div class="alert alert-danger">{{ err }}</div>
+                {% endfor %}
+              {% endif %}
+          </div>
+        </div>
+      </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+{% endblock %}
