@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
@@ -51,6 +52,15 @@ class Section(models.Model):
     def level_access(self):
         return self.access_section.level_access
 
+    def get_absolute_url(self):
+        return reverse(
+            'theme_list',
+            kwargs={
+                'supersection_id': self.super_section.pk,
+                'section_id': self.pk
+            }
+        )
+
 
     def __str__(self):
         return u"%s" % self.name
@@ -68,6 +78,16 @@ class Theme(models.Model):
     def __str__(self):
         return u"%s" % self.name
 
+    def get_absolute_url(self):
+        return reverse(
+            'post_list',
+            kwargs={
+                'supersection_id': self.discipline.super_section.pk,
+                'section_id': self.discipline.pk,
+                'item_id':self.pk,
+            }
+        )
+
     class Meta:
         verbose_name = "Тема дисциплины"
         verbose_name_plural = "Темы дисциплин"
@@ -80,6 +100,17 @@ class Post(models.Model):
     post_type = models.BooleanField(default=True, null=False, verbose_name='Тип поста. 1-пост, 0-видеопост')
     created_date = models.DateTimeField(default=timezone.now)
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE, null=False)
+
+    def get_absolute_url(self):
+        return reverse(
+            'post_detail',
+            kwargs={
+                'supersection_id': self.theme.discipline.super_section.pk,
+                'section_id': self.theme.discipline.pk,
+                'item_id':self.theme.pk,
+                'post_item': self.pk,
+            }
+        )
 
     def __str__(self):
         return u"%s" % self.title

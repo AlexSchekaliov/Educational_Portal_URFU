@@ -16,14 +16,14 @@
             <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 {% for section_guest_item in section_guest %}
-                    <li><a href="{% url 'theme_list' supersection_id=section_guest_item.super_section.pk section_id=section_guest_item.pk %}">{{ section_guest_item.name }}</a></li>
+                    <li><a href="{{ section_guest_item.get_absolute_url }}">{{ section_guest_item.name }}</a></li>
                 {% endfor %}
             </ul>
 
             <ul class="nav nav-sidebar">
                 {% for section_item in section %}
                     {% if user.level_access >= section_item.level_access %}
-                    <li><a href="{% url 'theme_list' supersection_id=section_item.super_section.pk section_id=section_item.pk  %}">{{ section_item.name }}</a></li>
+                    <li><a href="{{ section_item.get_absolute_url }}">{{ section_item.name }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>

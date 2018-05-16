@@ -15,7 +15,7 @@
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
                 {% for postlist in post_list %}
-                    <li><a href="{% url 'post_detail' supersection_id=postlist.theme.discipline.super_section.pk section_id=postlist.theme.discipline.pk item_id=postlist.theme.pk post_item=postlist.pk %}">{{ postlist.title }}</a></li>
+                    <li><a href="{{ postlist.get_absolute_url|safe }}">{{ postlist.title }}</a></li>
                 {% endfor %}
                 {% for testlist in test_list %}
                     <li class ='task'><a href="#">{{ testlist.name }}</a></li>
@@ -27,8 +27,8 @@
         {% block contentinfo %}
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <p>
-                    В текущем разделе пользователь может выбрать интересующую его тему из навигационного меню, расположенного в левой части веб-страницы.
-                 Список постов выбранной темы отобразится в данном поле.
+                    В текущем разделе пользователь может выбрать пост или тест из навигационного меню, расположенного в левой части веб-страницы.
+                 Детальное содержимое выбранного поста или теста отобразится в данном поле. 
                 </p>
             </div>
         {% endblock %}
