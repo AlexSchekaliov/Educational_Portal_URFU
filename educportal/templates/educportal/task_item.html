@@ -1,0 +1,62 @@
+{% extends 'educportal/base.html' %}
+{% load staticfiles %}
+{% block header %}
+    {{ block.super }}
+    <title>Test task_page</title>
+    <link href="{% static "educportal/styles/tasks.css"%}" rel="stylesheet">
+{% endblock %}
+{% block header_menu %}
+    {{ block.super }}
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 wrapper">
+                {% for task_item in task %}
+                    <div class="col-sm-12 col-md-12 title">
+                    <h2>{{ task_item.title }}</h2>
+                    </div>
+                <div class="col-sm-12 col-md-12 content">
+                    {% autoescape off %}{{ task_item.task_content }}{% endautoescape %}
+                </div>
+                <div class="col-sm-12 col-md-12 taskanswer">
+
+                    {% for task_answer_item in task_item.taskanswer_set.all %}
+                            <div class="form-check radio-pink-gap">
+                            <div class = "col-sm-1 col-md-1 ">
+                            <input type="radio" name="answer_group" id="{{ task_answer_item.pk }}">
+                            </div>
+                            <div class="col-sm-11 col-md-11">
+                            <label for="{{ task_answer_item.pk }}">{% autoescape off%}{{ task_answer_item.task_answer_content }}{% endautoescape %}</label>
+                            </div>
+                            </div>
+                    {% endfor %}
+{#{{ task_item.test.pk|add:task_item.pk}}#}
+                </div>
+                <div class="col-sm-12 col-md-12 pagination" >
+                        {% if is_paginated %}
+                           {% if page_obj.has_previous %}
+                               <div class="col-sm-5 col-md-5"><a  class = 'btn btn-primary' href="?page={{ page_obj.previous_page_number }}">Предыдущий</a></div>
+                           {% endif %}
+                            {% if page_obj.has_next %}
+                            <div class="col-sm-5 col-md-5 col-md-offset-1 col-sm-offset-1 pull-right"><a id="super_id" class = 'btn btn-primary pull-right next' href="?page={{ page_obj.next_page_number }}">Следующий</a></div>
+                            {% else %}
+                                <div class="col-sm-5 col-md-5 col-md-offset-1 col-sm-offset-1 pull-right"><a class = 'btn btn-danger pull-right' href="">Закончить тест</a></div>
+                            {% endif %}
+                        {% endif %}
+                </div>
+              {% endfor %}
+          </div>
+      </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript">
+        {#$('document').ready(function() {#}
+        {#        $( "#super_id" ).click(function() {#}
+        {#            alert($('input[type=radio][name=answer_group]:checked').attr('id'))#}
+        {#        })#}
+        {#});#}
+    </script>
+{% endblock %}

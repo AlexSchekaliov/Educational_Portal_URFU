@@ -18,7 +18,7 @@
                     <li><a href="{{ postlist.get_absolute_url|safe }}">{{ postlist.title }}</a></li>
                 {% endfor %}
                 {% for testlist in test_list %}
-                    <li class ='task'><a href="#">{{ testlist.name }}</a></li>
+                    <li class ='task'><a href="{{ testlist.get_absolute_url|safe }}">{{ testlist.name }}</a></li>
                 {% endfor %}
             </ul>
             </div>

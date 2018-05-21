@@ -17,7 +17,9 @@ from django.contrib.auth.decorators import login_required
 from django.urls import path, reverse_lazy
 from django.views.generic import TemplateView
 
-from educportal.views import SignUpView, SectionListView, ThemeListView, PostTestListView, PostDetailView, ChangeUserInfoView
+from educportal.views import SignUpView, SectionListView, ThemeListView, \
+                                        PostTestListView, PostDetailView, ChangeUserInfoView, \
+                                        TaskListView
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView,PasswordChangeDoneView
 
 
@@ -37,4 +39,5 @@ urlpatterns = [
     path(r'degrees/<int:supersection_id>/<int:section_id>/themes', ThemeListView.as_view(),name = 'theme_list'),
     path(r'degrees/<int:supersection_id>/<int:section_id>/themes/<int:item_id>/post/', PostTestListView.as_view(),name = 'post_list'),
     path(r'degrees/<int:supersection_id>/<int:section_id>/themes/<int:item_id>/post/<int:post_item>', PostDetailView.as_view(), name = 'post_detail'),
+    path(r'degrees/<int:supersection_id>/<int:section_id>/themes/<int:item_id>/test/<int:test_id>', TaskListView.as_view(), name = 'task_list'),
 ]

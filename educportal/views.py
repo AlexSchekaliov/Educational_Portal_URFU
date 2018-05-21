@@ -1,8 +1,9 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView,TemplateView, ListView, DetailView, UpdateView
+from django.views.generic.list import MultipleObjectMixin
 
 from educportal.forms import SignUpForm
-from educportal.models import User, Section, Post, Theme, Test
+from educportal.models import User, Section, Post, Theme, Test,Task
 
 
 
@@ -53,9 +54,13 @@ class PostTestListView(ListView):
     def get_test(self):
         return Test.objects.filter(theme__pk=self.kwargs['item_id']).order_by('created_date')
 
+    def get_task_first(self):
+        return Task.objects.filter(test__theme__pk=self.kwargs['item_id']).order_by('serial_number').first();
+
     def get_context_data(self, **kwargs):
         context = super(PostTestListView,self).get_context_data(**kwargs)
         context['test_list'] = self.get_test()
+        # context['task_item'] = self.get_task_first();
         return context
 
     def get_queryset(self):
@@ -63,7 +68,6 @@ class PostTestListView(ListView):
 
 class PostDetailView(DetailView):
     template_name = 'educportal/post_detail.html'
-    model = Post
     pk_url_kwarg = "post_item"
     def get_context_data(self, **kwargs):
         context = super(PostDetailView,self).get_context_data(**kwargs)
@@ -74,7 +78,13 @@ class PostDetailView(DetailView):
         return Post.objects.filter(theme__pk=self.kwargs['item_id']).order_by('created_date')
 
 
-# class TaskListView ()
+class TaskListView (ListView):
+    template_name = 'educportal/task_item.html'
+    context_object_name = 'task'
+    paginate_by = 1
+    def get_queryset(self):
+        return Task.objects.filter(test__pk=self.kwargs['test_id']).order_by('serial_number')
+
 
 class ChangeUserInfoView(UpdateView):
     model = User
@@ -83,4 +93,4 @@ class ChangeUserInfoView(UpdateView):
     success_url = reverse_lazy('personal_info')
 
     def get_object(self, queryset=None):
-        return self.request.user
+         return self.request.user

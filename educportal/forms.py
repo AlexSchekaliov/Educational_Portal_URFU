@@ -8,8 +8,7 @@ class SignUpForm(ModelForm):
     confirm_password = forms.CharField(
         label='Подтвердите пароль',
         widget=forms.PasswordInput(),
-        strip=False,
-        help_text='Введите пароль повторно.'
+        strip=False
     )
     academic_group = forms.ModelChoiceField(queryset=AcademicGroup.objects.all(),required=True)
 
@@ -44,9 +43,3 @@ class SignUpForm(ModelForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email','academic_group', 'password','phone_number')
-
-class ChangeUserInfoForm(ModelForm):
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'phone_number')

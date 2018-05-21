@@ -123,20 +123,32 @@ class Post(models.Model):
 class Test(models.Model):
     name = models.CharField(max_length=200, verbose_name="Название теста", null = False)
     theme = models.ForeignKey(Theme,on_delete=models.CASCADE, null = False)
+    allowable_number_errors = models.PositiveSmallIntegerField(verbose_name='Допустимое количество ошибок', default=1)
     created_date = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return u"%s" % self.name
+
+    def get_absolute_url(self):
+        return reverse(
+            'task_list',
+            kwargs={
+                'supersection_id': self.theme.discipline.super_section.pk,
+                'section_id': self.theme.discipline.pk,
+                'item_id':self.theme.pk,
+                'test_id':self.pk,
+            }
+        )
 
     class Meta:
         verbose_name = "Тест"
         verbose_name_plural = "Тесты"
 
 
+
 class Task(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок задания", null=False)
     task_content = models.TextField(verbose_name='Текст задания', null=False)
     serial_number = models.PositiveSmallIntegerField(verbose_name='Порядковый номер задания')
-    allowable_number_errors = models.PositiveSmallIntegerField(verbose_name='Допустимое количество ошибок')
     test = models.ForeignKey(Test, on_delete=models.CASCADE, null=False)
 
     def __str__(self):

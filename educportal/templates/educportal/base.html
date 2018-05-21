@@ -24,15 +24,10 @@
               {% for super_section_item in super_section_list %}
                 <li><a href="{% url 'section_page' super_section_item.pk %}">{{ super_section_item.name }}</a></li>
               {% endfor %}
-            <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Сотрудникам</a></li>
-            <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Помощь</a></li>
           </ul>
         {% endactiveurl %}
-          <form class="navbar-form navbar-left">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
           <ul class="nav navbar-nav navbar-right">
-              {% if user.is_authenticated %}
+              {% if user.is_authenticated and not user.is_superuser %}
 
                     <li><a data-toggle="modal" href="{% url 'profile_page' %}">{{user.first_name|title}} {{user.last_name|title}}</a></li>
                     <li><a data-toggle="modal" href="{% url 'logout' %}">Выйти</a></li>
