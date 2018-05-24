@@ -15,11 +15,12 @@
           {% activeurl %}
             <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
+            {% if section_guest %}
                 {% for section_guest_item in section_guest %}
                     <li><a href="{{ section_guest_item.get_absolute_url }}">{{ section_guest_item.name }}</a></li>
                 {% endfor %}
             </ul>
-
+            {% endif %}
             <ul class="nav nav-sidebar">
                 {% for section_item in section %}
                     {% if user.level_access >= section_item.level_access %}
@@ -27,7 +28,6 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-
         </div>
           {% endactiveurl %}
       {% endblock %}
