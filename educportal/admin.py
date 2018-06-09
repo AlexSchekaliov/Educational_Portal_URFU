@@ -1,12 +1,11 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from educportal.models import User, AcademicGroup,StudentGroupAccess,Post,Theme,Section,SuperSection,Test,Task,TaskAnswer,\
-    Department,Student,Teacher
+from educportal.models import User, AcademicGroup,GroupAccess,Post,Theme,Section,SuperSection,Test,Task,TaskAnswer
 
 
 admin.site.register(User)
 admin.site.register(AcademicGroup)
-admin.site.register(StudentGroupAccess)
+admin.site.register(GroupAccess)
 admin.site.register(Post,SummernoteModelAdmin)
 admin.site.register(Theme)
 admin.site.register(Section)
@@ -14,9 +13,6 @@ admin.site.register(SuperSection)
 admin.site.register(Test)
 admin.site.register(Task,SummernoteModelAdmin)
 admin.site.register(TaskAnswer, SummernoteModelAdmin)
-admin.site.register(Department)
-admin.site.register(Student)
-admin.site.register(Teacher)
 
 
 

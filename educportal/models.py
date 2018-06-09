@@ -16,7 +16,7 @@ class SuperSection (models.Model):
         verbose_name_plural = "Супер разделы"
 
 
-class StudentGroupAccess(models.Model):
+class GroupAccess(models.Model):
     level_access = models.PositiveSmallIntegerField()
     degree = models.CharField(max_length=10, blank=False, null=False, unique=True)
 
@@ -31,7 +31,7 @@ class StudentGroupAccess(models.Model):
 class AcademicGroup(models.Model):
 
     group_name = models.CharField(max_length=15,unique=True, verbose_name="Название_группы")
-    group_access = models.ForeignKey(StudentGroupAccess, on_delete=models.CASCADE)
+    group_access = models.ForeignKey(GroupAccess, on_delete=models.CASCADE)
 
     def __str__(self):
         return u"%s" % self.group_name
@@ -45,7 +45,7 @@ class Section(models.Model):
 
     name = models.CharField(max_length=200, verbose_name="Название дисциплины")
     is_guest = models.BooleanField(default=False)
-    access_section = models.ForeignKey(StudentGroupAccess, on_delete=models.CASCADE,null = True)
+    access_section = models.ForeignKey(GroupAccess, on_delete=models.CASCADE,null = True)
     super_section = models.ForeignKey(SuperSection, on_delete=models.CASCADE, null= True)
 
     @property
@@ -125,6 +125,7 @@ class Test(models.Model):
     theme = models.ForeignKey(Theme,on_delete=models.CASCADE, null = False)
     allowable_number_errors = models.PositiveSmallIntegerField(verbose_name='Допустимое количество ошибок', default=1)
     created_date = models.DateTimeField(default=timezone.now)
+    
     def __str__(self):
         return u"%s" % self.name
 
@@ -159,29 +160,29 @@ class Task(models.Model):
         verbose_name_plural = "Задания"
 
 
-class Student(models.Model):
-    academic_group = models.ForeignKey(AcademicGroup, on_delete=models.CASCADE)
+# class Student(models.Model):
+#     academic_group = models.ForeignKey(AcademicGroup, on_delete=models.CASCADE)
+#
+#     class Meta:
+#         verbose_name = "Студент"
+#         verbose_name_plural = "Студенты"
 
-    class Meta:
-        verbose_name = "Студент"
-        verbose_name_plural = "Студенты"
+# class Department(models.Model):
+#     name = models.CharField(max_length=200, verbose_name="Название департамента", null=False)
+#
+#     def __str__(self):
+#         return '%s' % self.name
+#
+#     class Meta:
+#         verbose_name = "Департамент"
+#         verbose_name_plural = "Департаменты"
 
-class Department(models.Model):
-    name = models.CharField(max_length=200, verbose_name="Название департамента", null=False)
-
-    def __str__(self):
-        return '%s' % self.name
-
-    class Meta:
-        verbose_name = "Департамент"
-        verbose_name_plural = "Департаменты"
-
-class Teacher(models.Model):
-    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=False)
-
-    class Meta:
-        verbose_name = "Преподаватель"
-        verbose_name_plural = "Преподаватели"
+# class Teacher(models.Model):
+#     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=False)
+#
+#     class Meta:
+#         verbose_name = "Преподаватель"
+#         verbose_name_plural = "Преподаватели"
 
 class TaskAnswer(models.Model):
     task_answer_content = models.TextField(verbose_name="Текст ответа", null=False)
@@ -198,7 +199,7 @@ class TaskAnswer(models.Model):
 class User(AbstractUser):
     email = models.EmailField(verbose_name='Email', unique=True)
     phone_number = PhoneNumberField(verbose_name='Телефон', blank = True,null = True)
-    academic_group = models.ForeignKey(AcademicGroup, on_delete=models.CASCADE)
+    academic_group = models.ForeignKey(AcademicGroup, on_delete=models.CASCADE, null=True)
 
     @property
     def level_access(self):
