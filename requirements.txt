@@ -10,5 +10,7 @@ django-widget-tweaks==1.4.1
 lxml==4.2.1
 now==0.0.6
 phonenumberslite==8.9.2
+psycopg2==2.7.4
 pytils==0.3
 pytz==2018.3
+selenium==3.12.0
