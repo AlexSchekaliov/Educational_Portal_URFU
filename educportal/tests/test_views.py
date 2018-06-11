@@ -191,114 +191,92 @@ class PostDetailView(TestCase):
         group_access_bachalor = GroupAccess.objects.create(level_access=1, degree='Бакалавр')
         group_access_master = GroupAccess.objects.create(level_access=2, degree='Магистр')
 
-        # Сохрание в  тестовой базе данныъ созданныъ экземпляров модели GroupAccess
-        list_group_sccess = {group_access_bachalor, group_access_master}
-        for list_group_sccess_item in list_group_sccess:
-            list_group_sccess_item.save()
-
-
         # Создание академических групп
 
-            academic_group_bachalor = AcademicGroup.objects.create(group_name='ЗЗНХ', group_access=group_access_bachalor)
-            academic_group_master = AcademicGroup.objects.create(group_name='МГПИ-1',group_access=group_access_master)
-
-            list_academic_group = {academic_group_bachalor, academic_group_master}
-            for list_academic_group_item in list_academic_group:
-                list_academic_group_item.save()
+        academic_group_bachalor = AcademicGroup.objects.create(group_name='МТ-1', group_access= group_access_bachalor)
+        academic_group_master = AcademicGroup.objects.create(group_name='МГПИ-1',group_access= group_access_master)
 
 
         # Создание 2-х пользователей: Бакалавр и магистр
 
-            test_user1 = User.objects.create(username='testuser1', email='testuser1@mail.ru', academic_group = academic_group_bachalor , password='12345')
-            test_user1.save()
-            test_user2 = User.objects.create(username='testuser2', email='testuser2@mail.ru', academic_group = academic_group_master, password='1234587')
-            test_user2.save()
+        test_user1 = User.objects.create(username='testuser1', email='testuser1@mail.ru', academic_group = academic_group_bachalor)
+        test_user1.set_password('12345')
+        test_user1.save()
+        test_user2 = User.objects.create(username='testuser2', email='testuser2@mail.ru', academic_group = academic_group_master)
+        test_user2.set_password('1234587')
+        test_user2.save()
 
         # Создание суперразделов (разделов главного навигационного меню)
 
-            self.bachalor_section = SuperSection.objects.create(name="Бакалаврам")
-            self.master_section = SuperSection.objects.create(name="Магистрам")
-
-            list_super_section = {self.bachalor_section, self.master_section}
-            # Сохрание в  тестовой базе данныъ созданныъ разделов
-            for list_super_section_item in list_super_section:
-                list_super_section_item.save()
-
-
-
-
-
-
+        self.bachalor_section = SuperSection.objects.create(name="Бакалаврам")
+        self.master_section = SuperSection.objects.create(name="Магистрам")
 
         # Создание 2 тестовых разделов-дисциплин
 
-            self.discipline_bachalor_section = Section.objects.create(name='Дисциплина_1', access_section=group_access_bachalor, super_section=self.bachalor_section)
-            self.discipline_master_section = Section.objects.create(name='Дисциплина_2', access_section=group_access_master,super_section=self.master_section)
-            self.discipline_bachalor_section.save()
-            self.discipline_master_section.save()
+        self.discipline_bachalor_section = Section.objects.create(name='Дисциплина_1', access_section= group_access_bachalor, super_section=self.bachalor_section)
+        self.discipline_master_section = Section.objects.create(name='Дисциплина_2', access_section= group_access_master,super_section=self.master_section)
 
         # Создание 2  тем, ассоциированных с разделами-дисциплинами
 
-            self.theme_for_discipline_bachalor_section = Theme.objects.create(name='Тема_1',discipline=self.discipline_bachalor_section)
-            self.theme_for_discipline_master_section = Theme.objects.create(name='Тема_1',discipline=self.discipline_master_section)
-            self.theme_for_discipline_bachalor_section.save()
-            self.theme_for_discipline_master_section.save()
+        self.theme_for_discipline_bachalor_section = Theme.objects.create(name='Тема_1',discipline=self.discipline_bachalor_section)
+        self.theme_for_discipline_master_section = Theme.objects.create(name='Тема_1',discipline=self.discipline_master_section)
 
         # Создание 2 поста, ассоцированных с конкретной темой.
 
-            self.first_post = Post.objects.create(title='Пост_1', theme=self.theme_for_discipline_bachalor_section)
-            self.second_post = Post.objects.create(title='Пост_2', theme=self.theme_for_discipline_master_section)
+        self.first_post = Post.objects.create(title='Пост_1', theme=self.theme_for_discipline_bachalor_section)
+        self.second_post = Post.objects.create(title='Пост_2', theme=self.theme_for_discipline_master_section)
 
 
 
 
         # Проверка  механизма контроля доступа.
-    def test_access_to_post_anonymous_user(self):
+    def test_access_to_post_anonymous_user(self): # Анонимный пользователь
 
         resp_bachalor = self.client.get(reverse('post_detail', kwargs={'supersection_id': self.bachalor_section.pk,
                                                                 'section_id': self.discipline_bachalor_section.pk,
                                                                 'item_id':self.theme_for_discipline_bachalor_section.pk,
-                                                                'post_item': self.first_post,}))
+                                                                'post_item': self.first_post.pk,}))
 
         resp_master = self.client.get(reverse('post_detail', kwargs={'supersection_id': self.master_section.pk,
                                                                        'section_id': self.discipline_master_section.pk,
                                                                        'item_id': self.theme_for_discipline_master_section.pk,
-                                                                       'post_item': self.second_post, }))
-        self.assertEqual(resp_bachalor.status_code, 302)
-        self.assertEqual(resp_master.status_code, 302)
+                                                                       'post_item': self.second_post.pk, }))
+
+        self.assertEqual(resp_bachalor.status_code, 403) # Нет прав доступа к приватной ветке "Бакалаврам"
+        self.assertEqual(resp_master.status_code, 403)  # Нет прав доступа к приватной ветке "Магистрам"
 
 
+    def test_access_to_post_bachalor_user(self): # пользователь с правами "Бакалавр"
 
-        # Проверка на использование представлением корректного шаблона
-    def test_view_uses_correct_template(self):
-        resp = self.client.get(reverse('section_page', args=[self.master_section.pk, ]))
-        self.assertEqual(resp.status_code, 200)
-        self.assertTemplateUsed(resp, 'educportal/section_list.html')
+        self.client.login(username='testuser1', password='12345') # Регистрируем пользователя с правами "Бакалавр"
+        resp_bachalor = self.client.get(reverse('post_detail', kwargs={'supersection_id': self.bachalor_section.pk,
+                                                                'section_id': self.discipline_bachalor_section.pk,
+                                                                'item_id':self.theme_for_discipline_bachalor_section.pk,
+                                                                'post_item': self.first_post.pk,}))
 
+        resp_master = self.client.get(reverse('post_detail', kwargs={'supersection_id': self.master_section.pk,
+                                                                       'section_id': self.discipline_master_section.pk,
+                                                                       'item_id': self.theme_for_discipline_master_section.pk,
+                                                                       'post_item': self.second_post.pk, }))
 
-    # Проверка длины содержимого переменной section для раздела "Бакалаврам"
-    def test_context_section_length_bachalor(self):
-        resp = self.client.get(reverse('section_page', args=[self.bachalor_section.pk, ]))
-        self.assertTrue('section' in resp.context)
-        self.assertEqual(len(resp.context['section']), 15)
+        self.assertEqual(resp_bachalor.status_code, 200) # Есть права доступа к приватной ветке "Бакалаврам"
+        self.assertEqual(resp_master.status_code, 403)  # Нет прав доступа к приватной ветке "Магистрам"
 
-    # Проверка длины содержимого переменной section_guest для раздела "Бакалаврам"
-    def test_context_section_guest_length_bachalor(self):
-        resp = self.client.get(reverse('section_page', args=[self.bachalor_section.pk, ]))
-        self.assertTrue('section_guest' in resp.context)
-        self.assertEqual(len(resp.context['section_guest']), 0)
+    def test_access_to_post_master_user(self): # пользователь с правами "Бакалавр"
 
-    # Проверка длины содержимого переменной section для раздела "Магистрам"
-    def test_context_section_length_master(self):
-        resp = self.client.get(reverse('section_page', args=[self.master_section.pk, ]))
-        self.assertTrue('section' in resp.context)
-        self.assertEqual(len(resp.context['section']), 0)
+        self.client.login(username='testuser2', password='1234587') # Регистрируем пользователя с правами "Магистр"
+        resp_bachalor = self.client.get(reverse('post_detail', kwargs={'supersection_id': self.bachalor_section.pk,
+                                                                    'section_id': self.discipline_bachalor_section.pk,
+                                                                    'item_id':self.theme_for_discipline_bachalor_section.pk,
+                                                                    'post_item': self.first_post.pk,}))
+        resp_master = self.client.get(reverse('post_detail', kwargs={'supersection_id': self.master_section.pk,
+                                                                       'section_id': self.discipline_master_section.pk,
+                                                                       'item_id': self.theme_for_discipline_master_section.pk,
+                                                                       'post_item': self.second_post.pk, }))
 
-    # Проверка длины содержимого переменной section_guest для раздела "Магистрам"
-    def test_context_section_guest_length_master(self):
-        resp = self.client.get(reverse('section_page', args=[self.master_section.pk, ]))
-        self.assertTrue('section_guest' in resp.context)
-        self.assertEqual(len(resp.context['section_guest']), 15)
+        self.assertEqual(resp_bachalor.status_code, 200) # Есть права доступа к приватной ветке "Бакалаврам"
+        self.assertEqual(resp_master.status_code, 200)  # Есть права доступа к приватной ветке "Магистрам"
+
 
 
 
