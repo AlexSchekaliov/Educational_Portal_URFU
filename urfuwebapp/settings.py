@@ -120,6 +120,16 @@ LOGOUT_REDIRECT_URL = 'home_page'
 
 LANGUAGE_CODE = 'ru-ru'
 
+LANGUAGES = (
+    ('ru', 'Russian'),
+    ('en', 'English'),
+)
+# месторасположение файлов перевода
+LOCALE_PATHS = (
+    'locale',
+     os.path.join(BASE_DIR, 'locale'),
+)
+
 TIME_ZONE = 'Asia/Yekaterinburg'
 
 USE_I18N = True

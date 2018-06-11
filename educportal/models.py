@@ -45,8 +45,8 @@ class Section(models.Model):
 
     name = models.CharField(max_length=200, verbose_name="Название дисциплины")
     is_guest = models.BooleanField(default=False)
-    access_section = models.ForeignKey(GroupAccess, on_delete=models.CASCADE,null = True)
-    super_section = models.ForeignKey(SuperSection, on_delete=models.CASCADE, null= True)
+    access_section = models.ForeignKey(GroupAccess, on_delete=models.CASCADE)
+    super_section = models.ForeignKey(SuperSection, on_delete=models.CASCADE)
 
     @property
     def level_access(self):
@@ -94,12 +94,12 @@ class Theme(models.Model):
 
 class Post(models.Model):
 
-    title = models.CharField(max_length=200, verbose_name="Название поста", null=False)
+    title = models.CharField(max_length=200, verbose_name="Название поста")
     url_to_videopost = models.CharField(max_length=200, unique=True, blank=True, verbose_name="Ссылка на видеоролик", null=True)
     content = models.TextField(null=True, blank=True, verbose_name='Содержимое поста')
     post_type = models.BooleanField(default=True, null=False, verbose_name='Тип поста. 1-пост, 0-видеопост')
     created_date = models.DateTimeField(default=timezone.now)
-    theme = models.ForeignKey(Theme, on_delete=models.CASCADE, null=False)
+    theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return reverse(
