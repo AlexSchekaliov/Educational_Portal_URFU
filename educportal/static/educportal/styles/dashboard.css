@@ -115,6 +115,15 @@ body {
   text-shadow: 1px 1px 1px lightblue;
 }
 
+.form_setlang {
+  padding-top: 15px;
+  padding-right: 10px;
+}
+
+.form_setlang > a {
+  color: #c7254e;
+  text-decoration: none;
+}
 
 
 /*

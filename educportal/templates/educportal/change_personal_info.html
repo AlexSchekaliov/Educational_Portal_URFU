@@ -1,5 +1,6 @@
 {% extends 'educportal/profile_page.html' %}
 {% load widget_tweaks %}
+{% load i18n %}
 {% load staticfiles %}
 {% block header %}
     {{ block.super }}
@@ -19,7 +20,7 @@
                         <form class="form-horizontal" method="post" id="changeUserInfo-form" novalidate>
                             {% csrf_token %}
                             <div class="form-group {% if form.username.errors  %}has-error{% endif %}">
-                                <label class="control-label col-xs-3">Изменение логина:</label>
+                                <label class="control-label col-xs-3">{% trans 'Изменение логина:' %}</label>
                                 <div class="col-xs-9">
                                     {{ form.username|add_class:'form-control'|append_attr:'placeholder:Введите новый логин' }}
                                     {% if form.username.errors %}
@@ -28,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="form-group {% if form.email.errors  %}has-error{% endif %}">
-                                <label class="control-label col-xs-3">Изменение email:</label>
+                                <label class="control-label col-xs-3">{% trans 'Изменение email:' %}</label>
                                 <div class="col-xs-9">
                                 {{ form.email|add_class:'form-control'|append_attr:'placeholder:Введите новый email' }}
                                 {% if form.email.errors %}
@@ -37,7 +38,7 @@
                                 </div>
                             </div>
                             <div class="form-group {% if form.phone_number.errors  %}has-error{% endif %}">
-                                <label class="control-label col-xs-3 text-left">Изменение мобильного номера:</label>
+                                <label class="control-label col-xs-3 text-left">{% trans 'Изменение мобильного номера:'%}</label>
                                 <div class="col-xs-9">
                                     {{ form.phone_number|add_class:'form-control'|append_attr:'placeholder:Введите новый мобильный номер' }}
                                     {% if form.phone_number.errors %}
@@ -48,7 +49,7 @@
                             <div class="form-group">
                                 <div class="col-xs-offset-3 col-xs-9">
                                 <input type="submit" class="btn btn-primary" name="btn-reg" form="changeUserInfo-form" value="Сохранить изменения">
-                                    <a class="btn btn-danger" href="{% url 'change_user_password' %}" role="button">Изменить пароль</a>
+                                    <a class="btn btn-danger" href="{% url 'change_user_password' %}" role="button">{% trans 'Изменить пароль'%}</a>
                                 </div>
                             </div>
                         </form>

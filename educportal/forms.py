@@ -2,6 +2,8 @@ from django import forms
 from django.forms import ModelForm
 from educportal.models import User
 from educportal.models import AcademicGroup
+from django.utils.translation import  ugettext
+
 class SignUpForm(ModelForm):
     first_name = forms.CharField(label='Имя')
     last_name = forms.CharField(label='Фамилия')
@@ -15,14 +17,14 @@ class SignUpForm(ModelForm):
     def clean_username(self):
         username = self.cleaned_data["username"]
         if User.objects.filter(username__iexact=username).exists():
-            self.add_error('username', 'Пользователь с таким именем уже существует!')
+            self.add_error('username', ugettext('Пользователь с таким именем уже существует!'))
 
         return username
 
     def clean_email(self):
         email = self.cleaned_data["email"]
         if User.objects.filter(email__iexact=email).exists():
-            self.add_error('email', 'Пользователь с таким email уже существует!')
+            self.add_error('email', ugettext('Пользователь с таким email уже существует!'))
 
         return email.lower()
 
@@ -30,7 +32,7 @@ class SignUpForm(ModelForm):
         super().clean()
         if 'password' in self.cleaned_data and 'confirm_password' in self.cleaned_data:
             if self.cleaned_data['password'] != self.cleaned_data['confirm_password']:
-                self.add_error(None, "Пароли должны совпадать!!!")
+                self.add_error(None, ugettext("Пароли должны совпадать!!!"))
         return self.cleaned_data
 
     def save(self, commit=True):

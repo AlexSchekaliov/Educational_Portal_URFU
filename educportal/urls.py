@@ -14,8 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib.auth.decorators import login_required
-from django.urls import path, reverse_lazy
+from django.urls import path, reverse_lazy, include
 from django.views.generic import TemplateView
+from django.conf.urls.i18n import i18n_patterns
 
 from educportal.views import SignUpView, SectionListView, ThemeListView, \
                                         PostTestListView, PostDetailView, ChangeUserInfoView, \
@@ -40,4 +41,5 @@ urlpatterns = [
     path(r'degrees/<int:supersection_id>/<int:section_id>/themes/<int:item_id>/post/', PostTestListView.as_view(),name = 'post_list'),
     path(r'degrees/<int:supersection_id>/<int:section_id>/themes/<int:item_id>/post/<int:post_item>', PostDetailView.as_view(), name = 'post_detail'),
     path(r'degrees/<int:supersection_id>/<int:section_id>/themes/<int:item_id>/test/<int:test_id>', TaskListView.as_view(), name = 'task_list'),
+    path(r'i18n/', include('django.conf.urls.i18n')),
 ]

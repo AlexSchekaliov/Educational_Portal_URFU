@@ -42,13 +42,14 @@ INSTALLED_APPS = [
 	'django_select2',
     'django_summernote',
     'django_activeurl',
-	'educportal',
+	'educportal'
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -85,11 +86,11 @@ DATABASES = {
 'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'educportaldb',
-        'USER': 'admin_2',
-        'PASSWORD': 'qwerty1234567',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+        'USER' : 'postgres',
+        'PASSWORD' : '1234',
+        'HOST' : 'localhost',
+        'PORT' : '',
+            }
 }
 
 
@@ -118,16 +119,20 @@ LOGOUT_REDIRECT_URL = 'home_page'
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru_RU'
 
 LANGUAGES = (
     ('ru', 'Russian'),
     ('en', 'English'),
 )
+
 # месторасположение файлов перевода
+
+# BASE_DIR = BASE_DIR + '/educportal/'
+
 LOCALE_PATHS = (
-    'locale',
-     os.path.join(BASE_DIR, 'locale'),
+    os.path.join(BASE_DIR, 'locale'),
+
 )
 
 TIME_ZONE = 'Asia/Yekaterinburg'

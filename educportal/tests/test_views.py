@@ -183,7 +183,7 @@ class SectionListView(TestCase):
         self.assertEqual(len(resp.context['section_guest']), 15)
 
 
-class PostDetailView(TestCase):
+class TestPostDetailView(TestCase):
 
     def setUp(self):
 

@@ -1,4 +1,5 @@
 {% extends 'educportal/base_general.html' %}
+{% load i18n %}
 {% load staticfiles %}
 {% load activeurl %}
 {% block header %}
@@ -20,20 +21,37 @@
         <div class="navbar-collapse collapse">
         {% activeurl %}
           <ul class="nav navbar-nav navbar-left">
-            <li><a href="http://bootstrap-3.ru/examples/dashboard/#">Главная</a></li>
+            <li><a href="http://bootstrap-3.ru/examples/dashboard/#">{% trans "Главная" %}</a></li>
               {% for super_section_item in super_section_list %}
                 <li><a href="{% url 'section_page' super_section_item.pk %}">{{ super_section_item.name }}</a></li>
               {% endfor %}
           </ul>
         {% endactiveurl %}
           <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <form id='lang_en' action="{% url 'set_language' %}" method='POST' class = 'form_setlang'>{% csrf_token %}
+                    <input type='hidden' name='language' value='en'/>
+                    <a href='#' title='English' onclick="document.getElementById('lang_en').submit()">
+                    {% trans 'Английский' %}
+                    </a>
+                  </form>
+              </li>
+            <li>
+                <form id='lang_ru' action="{% url 'set_language' %}" method='POST' class = 'form_setlang'>{% csrf_token %}
+                    <input type='hidden' name='language' value='ru'/>
+
+                    <a href='#' title='Russian' onclick="document.getElementById('lang_ru').submit()">
+                    {% trans 'Русский' %}
+                    </a>
+                </form>
+              </li>
               {% if user.is_authenticated and not user.is_superuser %}
 
                     <li><a data-toggle="modal" href="{% url 'profile_page' %}">{{user.first_name|title}} {{user.last_name|title}}</a></li>
-                    <li><a data-toggle="modal" href="{% url 'logout' %}">Выйти</a></li>
+                    <li><a data-toggle="modal" href="{% url 'logout' %}">{% trans 'Выйти' %}</a></li>
               {% else %}
-                  <li><a data-toggle="modal" href="{% url 'reg_page' %}">Зарегистрироваться</a></li>
-                  <li><a data-toggle="modal" href="{% url 'login_page' %}">Войти</a></li>
+                  <li><a data-toggle="modal" href="{% url 'reg_page' %}">{% trans 'Зарегистрироваться' %}</a></li>
+                  <li><a data-toggle="modal" href="{% url 'login_page' %}">{% trans 'Войти' %}</a></li>
               {% endif %}
           </ul>
         </div>

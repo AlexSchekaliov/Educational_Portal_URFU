@@ -1,9 +1,10 @@
 {% extends 'educportal/base.html' %}
+{% load i18n %}
 {% load widget_tweaks %}
 {% load staticfiles %}
 {% block header %}
     {{ block.super}}
-    <title>Test register_page</title>>
+    <title>Test register_page</title>
 {% endblock %}
 {% block header_menu %}
     {{ block.super }}
@@ -12,13 +13,13 @@
     <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Регистрация</h4>
+        <h4 class="modal-title" id="myModalLabel">{% trans 'Регистрация' %}</h4>
       </div>
       <div class="modal-body">
          <form class="form-horizontal" method="post" id="register-form" novalidate>
             {% csrf_token %}
               <div class="form-group {% if form.username.errors  %}has-error{% endif %}">
-                    <label class="control-label col-xs-3">Логин:</label>
+                    <label class="control-label col-xs-3">{% trans 'Логин:' %}</label>
                     <div class="col-xs-9">
                         {{ form.username|add_class:'form-control'|append_attr:'placeholder:Введите логин' }}
                         {% if form.username.errors %}

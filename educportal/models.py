@@ -3,10 +3,12 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
+from django.utils.translation import ugettext
 
 
 class SuperSection (models.Model):
-    name = models.CharField(max_length=10, unique=True, verbose_name="Название супер раздела")
+
+    name = models.CharField(max_length=10, unique=True, verbose_name=ugettext("Название супер раздела"))
 
     def __str__(self):
         return u"%s" % self.name
@@ -30,7 +32,7 @@ class GroupAccess(models.Model):
 
 class AcademicGroup(models.Model):
 
-    group_name = models.CharField(max_length=15,unique=True, verbose_name="Название_группы")
+    group_name = models.CharField(max_length=15,unique=True, verbose_name=ugettext("Название_группы"))
     group_access = models.ForeignKey(GroupAccess, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -43,7 +45,7 @@ class AcademicGroup(models.Model):
 
 class Section(models.Model):
 
-    name = models.CharField(max_length=200, verbose_name="Название дисциплины")
+    name = models.CharField(max_length=200, verbose_name=ugettext("Название дисциплины"))
     is_guest = models.BooleanField(default=False)
     access_section = models.ForeignKey(GroupAccess, on_delete=models.CASCADE)
     super_section = models.ForeignKey(SuperSection, on_delete=models.CASCADE)
@@ -66,8 +68,8 @@ class Section(models.Model):
         return u"%s" % self.name
     class Meta:
 
-        verbose_name = "Дисциплина"
-        verbose_name_plural = "Дисциплины"
+        verbose_name = ugettext("Дисциплина")
+        verbose_name_plural = ugettext("Дисциплины")
 
 class Theme(models.Model):
 
